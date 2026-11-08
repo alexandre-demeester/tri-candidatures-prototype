@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Tri des candidatures · prototype MénageSimple</title>
+<style>
+  :root { --fond:#f6f5f1; --carte:#fff; --texte:#1d2226; --doux:#5d6770; --trait:#dcdcd4; --accent:#1b3a5c;
+          --prio:#2e7d4f; --prep:#9a6b00; --revoir:#7a4fa3; --refus:#b23a3a; }
+  * { box-sizing:border-box }
+  body { margin:0; font:16px/1.55 system-ui, -apple-system, sans-serif; background:var(--fond); color:var(--texte) }
+  header, section, footer { max-width:1040px; margin:0 auto; padding:0 16px }
+  header { padding-top:36px }
+  .sur { font-size:13px; letter-spacing:.04em; text-transform:uppercase; color:var(--doux) }
+  h1 { font-size:30px; line-height:1.2; margin:6px 0 10px }
+  h2 { font-size:21px; margin:44px 0 6px }
+  h3 { font-size:16px; margin:0 0 6px }
+  .doux { color:var(--doux) } .petit { font-size:14px }
+  .chiffres { display:grid; grid-template-columns:repeat(3, 1fr); gap:12px; margin:22px 0 4px }
+  .chiffre { background:var(--carte); border:1px solid var(--trait); border-radius:10px; padding:14px }
+  .chiffre b { display:block; font-size:24px; color:var(--accent) }
+  .onglets { display:flex; gap:6px; flex-wrap:wrap; margin:14px 0 }
+  .onglets button { border:1px solid var(--trait); background:#fff; border-radius:999px; padding:6px 12px; font:inherit; font-size:14px; cursor:pointer }
+  .onglets button.on { background:var(--accent); color:#fff; border-color:var(--accent) }
+  .grille { display:grid; grid-template-columns:minmax(0, 1fr) minmax(0, 1.25fr); gap:16px; align-items:start }
+  .liste { display:flex; flex-direction:column; gap:8px }
+  .ligne { background:var(--carte); border:1px solid var(--trait); border-left-width:5px; border-radius:8px; padding:10px 12px; cursor:pointer; text-align:left; font:inherit; color:inherit; width:100% }
+  .ligne:hover, .ligne.on { border-color:var(--accent) }
+  .ligne .haut { display:flex; justify-content:space-between; gap:8px }
+  .ligne .score { font-variant-numeric:tabular-nums; color:var(--doux) }
+  .f-prioritaire { border-left-color:var(--prio) } .f-a_preparer { border-left-color:var(--prep) }
+  .f-a_revoir { border-left-color:var(--revoir) } .f-refus { border-left-color:var(--refus) }
+  .badge { display:inline-block; font-size:12px; padding:1px 8px; border-radius:999px; color:#fff; white-space:nowrap }
+  .b-prioritaire { background:var(--prio) } .b-a_preparer { background:var(--prep) } .b-a_revoir { background:var(--revoir) } .b-refus { background:var(--refus) }
+  .puce { display:inline-block; font-size:12px; padding:1px 7px; border-radius:4px; background:#efeee8; color:#3c444b; margin:4px 4px 0 0 }
+  .panneau { background:var(--carte); border:1px solid var(--trait); border-radius:10px; padding:16px; position:sticky; top:12px }
+  .bareme { width:100%; border-collapse:collapse; font-size:14px; margin:8px 0 }
+  .bareme td { border-bottom:1px solid #eeeee8; padding:6px 4px; vertical-align:top }
+  .bareme td.pts { white-space:nowrap; font-variant-numeric:tabular-nums; width:52px; text-align:right; font-weight:600 }
+  .alerte { background:#fbf3e0; border-radius:6px; padding:6px 10px; margin:6px 0; font-size:14px }
+  .alerte.revoir { background:#f2ecf8 } .alerte.refus { background:#fbeaea }
+  ol.questions { padding-left:20px; margin:6px 0 } ol.questions li { margin:4px 0 }
+  .carte { background:var(--carte); border:1px solid var(--trait); border-radius:10px; padding:16px }
+  .deux { display:grid; grid-template-columns:1fr 1fr; gap:16px }
+  form label { display:block; font-size:13px; color:var(--doux); margin-top:8px }
+  form select, form textarea, form input { width:100%; font:inherit; font-size:14px; padding:6px 8px; border:1px solid var(--trait); border-radius:6px; background:#fff }
+  form textarea { min-height:70px }
+  .jours { display:grid; grid-template-columns:repeat(6, 1fr); gap:4px; font-size:13px }
+  .jours label { margin:0; color:var(--texte) } .jours input { width:auto }
+  .matrice { border-collapse:collapse; font-size:14px; font-variant-numeric:tabular-nums }
+  .matrice th, .matrice td { border:1px solid var(--trait); padding:6px 10px; text-align:center }
+  .matrice td.diag { background:#e9f5ee; font-weight:600 }
+  ul.serre li { margin:5px 0 }
+  footer { padding:40px 16px 60px; font-size:14px; color:var(--doux) }
+  @media (max-width:820px) { .grille, .deux { grid-template-columns:1fr } .panneau { position:static } .chiffres { grid-template-columns:1fr } h1 { font-size:25px } }
+</style>
+</head>
+<body>
+<header>
+  <div class="sur">Prototype · deuxième tour Stonks Holding · données 100 % fictives</div>
+  <h1>Moins d'appels pour dire non.<br>Tri des candidatures d'intervenant·e·s pour MénageSimple</h1>
+  <p>MénageSimple retient <b>moins de 5 % des candidatures</b>, après « une série d'entretiens ». Son formulaire public ne filtre que le permis et le casier : tout le reste (l'expérience réelle, la fiabilité, les créneaux, la zone par rapport au moyen de transport) se découvre au téléphone. Ce prototype trie les candidatures <b>avant</b> l'appel, explique chaque décision avec la phrase du candidat qui la justifie, et prépare les questions à poser.</p>
+  <div class="chiffres">
+    <div class="chiffre"><b id="k-total">30</b>candidatures fictives, champs identiques au formulaire public, plus 4 questions proposées</div>
+    <div class="chiffre"><b id="k-accord">en attente</b>d'accord avec un tri humain fait à l'aveugle</div>
+    <div class="chiffre"><b>0 CHF</b>par candidature : règles fixes, aucun appel à une IA payante, résultat identique à chaque fois</div>
+  </div>
+</header>
+
+<section id="file">
+  <h2>La file du jour</h2>
+  <p class="doux petit">Cliquez une candidature pour voir le détail. Le tri ne lit jamais le nom, l'e-mail, le téléphone ni l'adresse complète (test automatique à l'appui).</p>
+  <div class="onglets" id="onglets"></div>
+  <div class="grille">
+    <div class="liste" id="liste"></div>
+    <div class="panneau" id="detail"></div>
+  </div>
+</section>
+
+<section id="essai">
+  <h2>Essayer avec une candidature</h2>
+  <p class="doux petit">Partez d'une candidature du jeu, modifiez une réponse, le tri se recalcule. Rien n'est envoyé nulle part.</p>
+  <div class="deux">
+    <form class="carte" id="formulaire" onsubmit="return false"></form>
+    <div class="carte" id="resultat-essai"></div>
+  </div>
+</section>
+
+<section id="tests">
+  <h2>Ce qui a été testé</h2>
+  <div class="deux">
+    <div class="carte" id="accord"></div>
+    <div class="carte">
+      <h3>Tests automatiques (13 passent, 1 limite connue)</h3>
+      <ul class="serre petit">
+        <li><b>Équité</b> : sur les 30 candidatures, changer nom, e-mail, téléphone et adresse ne change rien au tri.</li>
+        <li><b>Reproductible</b> : deux exécutions donnent exactement le même résultat.</li>
+        <li><b>Critères éliminatoires</b> : un refus tombe même sur un excellent profil.</li>
+        <li><b>Prudence</b> : une donnée incohérente (permis G avec une adresse en Suisse, code postal inconnu) envoie en relecture humaine, quel que soit le score.</li>
+        <li><b>Négation</b> : « je n'ai pas prévenu » ne rapporte rien ; « si je ne peux pas venir, j'appelle la veille » rapporte bien.</li>
+        <li><b>Bug trouvé par les tests</b> : « dix-huit mois » était lu « huit mois ». Corrigé : mieux vaut ne lire aucune durée qu'une durée fausse.</li>
+        <li><b>Limite connue, non corrigée</b> : les nombres composés en lettres (« dix-huit », « un an et demi ») ne sont pas lus.</li>
+      </ul>
+      <p class="doux petit">Reproduire : <code>npm test</code> puis <code>npm run accord</code>. Aucune dépendance, Node 20 ou plus.</p>
+    </div>
+  </div>
+</section>
+
+<section id="formulaire-v2">
+  <h2>Le formulaire actuel, corrigé</h2>
+  <div class="deux">
+    <div class="carte">
+      <h3>Trois défauts relevés sur le formulaire public</h3>
+      <ul class="serre petit">
+        <li>Les tranches d'expérience sautent de « Moins de 1 Ans » à « Plus de 2 Ans » : une personne avec 18 mois d'expérience ne peut pas répondre juste. Ajouter « 1 à 2 ans ».</li>
+        <li>Coquilles visibles par chaque candidat : « quelque question », « Transports Publiques », « Ans ».</li>
+        <li>La page d'accueil dit à la fois « produits de nettoyage inclus » et « votre agent de ménage apporte ses propres produits ». À trancher, côté client comme côté recrutement.</li>
+      </ul>
+    </div>
+    <div class="carte">
+      <h3>Quatre questions à ajouter (1 minute de plus pour le candidat)</h3>
+      <ul class="serre petit">
+        <li><b>Créneaux</b> : jours et demi-journées disponibles, à la place du seul volume d'heures.</li>
+        <li><b>Dernier emploi</b> : « chez qui, combien de temps, quelles tâches ». Texte libre.</li>
+        <li><b>Fiabilité</b> : « une fois où vous n'avez pas pu venir : qu'avez-vous fait ? ». La question comportementale qui remplace « vous respectez vos engagements » à cocher.</li>
+        <li><b>Engagement</b> : sur combien de mois, puisque les clients veulent la même personne chaque semaine. Et une référence possible, oui ou non.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="methode">
+  <h2>Méthode et limites</h2>
+  <div class="deux">
+    <div class="carte petit">
+      <h3>Où l'IA intervient, et où elle n'intervient pas</h3>
+      <ul class="serre">
+        <li><b>Pas dans la décision.</b> Écarter ou appeler quelqu'un pour un emploi doit pouvoir s'expliquer ligne par ligne. Les règles sont fixes, lisibles dans un seul fichier, et chaque point cite la phrase qui le justifie.</li>
+        <li><b>Dans la fabrication.</b> L'IA (Claude) a servi à rédiger les 30 candidatures fictives, à proposer le barème et à écrire le code. Chaque étape a été relue.</li>
+        <li><b>Dans la vérification, à l'envers.</b> Le tri humain a été fait à l'aveugle, sans voir les sorties de l'outil, après le gel des règles (visible dans l'historique git).</li>
+      </ul>
+    </div>
+    <div class="carte petit">
+      <h3>Limites qui restent</h3>
+      <ul class="serre">
+        <li>Le jeu de test a été écrit par la même main que les règles : l'accord mesuré est un plafond, pas une promesse. Le vrai test, ce sont 50 vraies candidatures anonymisées.</li>
+        <li>Les mots-clés ratent des tournures (synonymes, fautes, phrases indirectes). Un LLM les lirait mieux ; il servirait alors à proposer, jamais à décider.</li>
+        <li>Les codes postaux ne couvrent que les localités du jeu : en vrai, brancher la liste officielle et publique de la Poste. Distances à vol d'oiseau.</li>
+        <li>Les « zones peu desservies » sont une hypothèse à valider avec l'équipe qui recrute.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<footer>
+  Prototype réalisé par Alexandre Demeester pour le deuxième tour du poste Digital Projects &amp; AI Assistant (Stonks Holding AG). Non affilié à MénageSimple, aucune donnée réelle : toutes les candidatures sont inventées. Informations publiques consultées le 8 novembre 2026 sur menagesimple.com et son formulaire de candidature.
+</footer>
+
+<script type="module" src="src/app.js"></script>
+</body>
+</html>

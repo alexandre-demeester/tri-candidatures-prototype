@@ -1,4 +1,4 @@
-// Tri des candidatures intervenant·e·s — prototype MénageSimple (données fictives).
+// Tri des candidatures intervenant·e·s : prototype MénageSimple (données fictives).
 // Module pur : aucune dépendance, aucun appel réseau, même résultat à chaque exécution.
 // Utilisé tel quel par la page web (navigateur) et par les tests (Node).
 
@@ -220,7 +220,7 @@ export function trier(candidatComplet) {
   }
   if (!concret) alerte("TEXTE_VAGUE", nbMots(c.texte_experience) < REGLES.mots_min_texte ? "Description de l'expérience trop courte pour en juger" : "Description sans durée, lieu ni tâches précises");
 
-  // 4. Fiabilité (max 3) — question comportementale « une fois où vous n'avez pas pu venir »
+  // 4. Fiabilité (max 3) : question comportementale « une fois où vous n'avez pas pu venir »
   const prev = chercher(c.texte_fiabilite, MOTIFS.prevenir);
   const del = chercher(c.texte_fiabilite, MOTIFS.delai);
   const sol = chercher(c.texte_fiabilite, MOTIFS.solution);
@@ -240,7 +240,7 @@ export function trier(candidatComplet) {
   const capacite = demi * REGLES.heures_par_demi_journee;
   if (heuresMin && demi > 0 && heuresMin > capacite) alerte("HEURES_SUPERIEURES_DISPO", `Souhaite au moins ${heuresMin} h/semaine pour ≈ ${capacite} h de créneaux`, { heures: c.heures_semaine, capacite });
 
-  // 6. Engagement dans la durée (max 1) — les clients veulent la même personne
+  // 6. Engagement dans la durée (max 1) : les clients veulent la même personne
   const hor = c.horizon === "plus_1_an" ? 1 : 0;
   res.detail.push({ critere: "Durée d'engagement", points: hor, max: 1, preuve: libelleHorizon(c.horizon) });
   if (c.horizon === "moins_3_mois") alerte("HORIZON_COURT", "Disponible moins de 3 mois, alors que les clients réguliers veulent la même personne");
