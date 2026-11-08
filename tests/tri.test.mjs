@@ -2,7 +2,7 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import fs from "node:fs";
-import { trier, dureeCiteeMois, CHAMPS_LUS, REGLES } from "../src/tri.js";
+import { trier, dureeCiteeMois, localiser, CHAMPS_LUS, REGLES } from "../src/tri.js";
 
 const CANDIDATS = JSON.parse(fs.readFileSync(new URL("../data/candidats.json", import.meta.url), "utf8"));
 const base = () => structuredClone(CANDIDATS.find((c) => c.id === "C01")); // profil solide, aucune alerte
@@ -94,4 +94,29 @@ test("chaque alerte produit une question à poser à l'appel", () => {
     if (r.file === "refus") continue;
     assert.equal(r.questions.length, r.alertes.length, c.id);
   }
+});
+
+test("codes postaux : répertoire officiel pour la Suisse romande, table courte pour la France voisine", () => {
+  assert.equal(localiser("1304")[0], "Cossonay-Ville");
+  assert.equal(localiser("1304")[3], "CH");
+  assert.equal(localiser("74100")[3], "FR");
+  assert.equal(localiser("8000"), null); // Zurich : hors Suisse romande, donc signalé, pas deviné
+});
+
+test("« première expérience en Suisse » avec 6 ans d'hôtel ailleurs n'est pas une incohérence", () => {
+  const c = base(); c.texte_experience = "C'est ma première expérience en Suisse. En Roumanie j'ai fait le ménage pendant 6 ans dans un hôtel : chambres, draps, sanitaires.";
+  assert.ok(!trier(c).alertes.some((a) => a.code === "EXPERIENCE_INCOHERENTE"));
+  c.texte_experience = "C'est ma première expérience, je suis très motivée pour apprendre le ménage et le repassage.";
+  assert.equal(trier(c).file, "a_revoir");
+});
+
+test("moins d'un an d'expérience ou fiabilité 1/3 : jamais en appel prioritaire, toujours une question", () => {
+  const c = base(); c.experience_tranche = "moins_1";
+  let r = trier(c);
+  assert.equal(r.file, "a_preparer");
+  assert.ok(r.alertes.some((a) => a.code === "EXPERIENCE_COURTE"));
+  const d = base(); d.texte_fiabilite = "J'ai prévenu mon chef le matin même.";
+  r = trier(d);
+  assert.equal(r.detail.find((x) => x.critere === "Fiabilité").points, 1);
+  assert.equal(r.file, "a_preparer");
 });

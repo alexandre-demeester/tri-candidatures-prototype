@@ -1,6 +1,6 @@
 // Mesure l'accord entre l'outil et un tri humain fait à l'aveugle.
-// Lancer : node eval/accord.mjs [labels/alexandre.json]
-// Écrit data/resultats.json, lu par la page.
+// Lancer : node eval/accord.mjs [labels/alexandre.json] [sortie.json]
+// Écrit data/resultats.json (lu par la page), sauf si une autre sortie est donnée.
 import fs from "node:fs";
 import { trier, FILES, VERSION } from "../src/tri.js";
 
@@ -37,7 +37,7 @@ const resultats = {
   matrice, graves: graves.map((g) => g.id),
   desaccords: lignes.filter((l) => l.outil !== l.humain),
 };
-fs.writeFileSync(new URL("data/resultats.json", racine), JSON.stringify(resultats, null, 1));
+fs.writeFileSync(new URL(process.argv[3] || "data/resultats.json", racine), JSON.stringify(resultats, null, 1));
 
 console.log(`Règles v${VERSION} · ${n} candidatures · étiquetage : ${L.etiqueteur} (${L.date})`);
 console.log(`Accord : ${accords}/${n} (${resultats.taux} %) · kappa de Cohen : ${resultats.kappa}`);

@@ -2,7 +2,12 @@
 // Module pur : aucune dépendance, aucun appel réseau, même résultat à chaque exécution.
 // Utilisé tel quel par la page web (navigateur) et par les tests (Node).
 
-export const VERSION = "1.0.0";
+import { NPA_CH } from "./npa.js";
+
+// 1.1.0 (8 nov., avant l'étiquetage humain) : codes postaux officiels ; une durée longue citée
+// l'emporte sur « première expérience en Suisse » ; expérience < 1 an et fiabilité 1/3
+// deviennent des points d'attention (avec question), donc plus d'appel prioritaire possible.
+export const VERSION = "1.1.0";
 
 // ---------------------------------------------------------------------------
 // Champs lus. Le tri ne voit QUE ces champs : nom, e-mail, téléphone et adresse
@@ -52,28 +57,22 @@ export const ZONES_PEU_DESSERVIES = new Set([
   "Valais - Evolène", "Vaud - Vallorbe", "Vaud - Lucens", "Vaud - Palézieux", "Vaud - Aubonne",
 ]);
 
-// NPA → [localité, lat, lon, pays]. Limité aux localités du jeu fictif ;
-// un NPA inconnu déclenche une alerte au lieu d'être deviné.
-export const LOCALITES = {
-  "1003": ["Lausanne", 46.52, 6.63, "CH"], "1004": ["Lausanne", 46.53, 6.62, "CH"],
-  "1006": ["Lausanne", 46.51, 6.64, "CH"], "1020": ["Renens", 46.54, 6.59, "CH"],
-  "1030": ["Bussigny", 46.55, 6.55, "CH"], "1040": ["Echallens", 46.64, 6.63, "CH"],
-  "1110": ["Morges", 46.51, 6.50, "CH"], "1196": ["Gland", 46.42, 6.27, "CH"],
-  "1260": ["Nyon", 46.38, 6.24, "CH"], "1201": ["Genève", 46.21, 6.14, "CH"],
-  "1205": ["Genève", 46.20, 6.14, "CH"], "1217": ["Meyrin", 46.23, 6.08, "CH"],
-  "1227": ["Carouge", 46.18, 6.14, "CH"], "1400": ["Yverdon-les-Bains", 46.78, 6.64, "CH"],
-  "1337": ["Vallorbe", 46.71, 6.37, "CH"], "1522": ["Lucens", 46.71, 6.84, "CH"],
-  "1530": ["Payerne", 46.82, 6.94, "CH"], "1630": ["Bulle", 46.62, 7.06, "CH"],
-  "1700": ["Fribourg", 46.81, 7.16, "CH"], "1800": ["Vevey", 46.46, 6.84, "CH"],
-  "1820": ["Montreux", 46.43, 6.91, "CH"], "1860": ["Aigle", 46.32, 6.97, "CH"],
-  "1870": ["Monthey", 46.25, 6.95, "CH"], "1920": ["Martigny", 46.10, 7.07, "CH"],
-  "1950": ["Sion", 46.23, 7.36, "CH"], "3960": ["Sierre", 46.29, 7.53, "CH"],
-  "1983": ["Evolène", 46.11, 7.49, "CH"], "2000": ["Neuchâtel", 46.99, 6.93, "CH"],
-  "2300": ["La Chaux-de-Fonds", 47.10, 6.83, "CH"], "2400": ["Le Locle", 47.06, 6.75, "CH"],
-  "74100": ["Annemasse", 46.19, 6.24, "FR"], "74160": ["Saint-Julien-en-Genevois", 46.14, 6.08, "FR"],
-  "74200": ["Thonon-les-Bains", 46.37, 6.48, "FR"], "25300": ["Pontarlier", 46.90, 6.35, "FR"],
-  "25500": ["Morteau", 47.06, 6.61, "FR"],
+// Suisse romande : 928 NPA du répertoire officiel des localités (swisstopo, données ouvertes),
+// voir outils/generer_npa.py. France voisine (frontaliers, permis G) : petite table manuelle.
+// Un NPA introuvable déclenche une alerte au lieu d'être deviné.
+const LOCALITES_FR = {
+  "74100": ["Annemasse", 46.19, 6.24], "74160": ["Saint-Julien-en-Genevois", 46.14, 6.08],
+  "74200": ["Thonon-les-Bains", 46.37, 6.48], "01210": ["Ferney-Voltaire", 46.26, 6.11],
+  "01170": ["Gex", 46.33, 6.06], "25300": ["Pontarlier", 46.90, 6.35], "25500": ["Morteau", 47.06, 6.61],
 };
+
+// NPA → [localité, lat, lon, pays] ou null
+export function localiser(npa) {
+  const n = String(npa || "").trim();
+  if (/^\d{4}$/.test(n) && NPA_CH[n]) return [...NPA_CH[n], "CH"];
+  if (/^\d{5}$/.test(n) && LOCALITES_FR[n]) return [...LOCALITES_FR[n], "FR"];
+  return null;
+}
 
 // ---------------------------------------------------------------------------
 // Règles réglables (tout le barème est ici, rien n'est caché ailleurs)
@@ -172,6 +171,8 @@ const QUESTIONS = {
   FRANCAIS_A_VERIFIER: () => "(À l'appel, mener l'échange en français et vérifier la compréhension des consignes d'un client.)",
   SMARTPHONE: () => "Les missions, changements d'horaire et messages clients passent par notre application : êtes-vous à l'aise pour l'utiliser au quotidien ?",
   DISPO_NON_RENSEIGNEE: () => "Quels jours et à quels moments de la journée êtes-vous disponible chaque semaine ?",
+  EXPERIENCE_COURTE: () => "Votre expérience est encore courte : quelles tâches faisiez-vous seul·e, sans qu'on vous montre ?",
+  FIABILITE_FAIBLE: () => "Vous nous avez dit avoir prévenu : combien de temps à l'avance, et qu'avez-vous proposé au client pour le rendez-vous manqué ?",
 };
 
 // Alertes qui demandent une relecture humaine AVANT tout appel (données incohérentes).
@@ -195,7 +196,7 @@ export function trier(candidatComplet) {
   if (res.motifs_refus.length) { res.file = "refus"; return res; }
 
   // 2. Cohérence des données
-  const loc = LOCALITES[c.npa];
+  const loc = localiser(c.npa);
   if (!loc) alerte("NPA_INCONNU", `Code postal ${c.npa || "absent"} inconnu du référentiel`);
   const pays = loc ? loc[3] : c.pays;
   if (loc && c.permis === "G" && pays === "CH") alerte("PERMIS_ADRESSE", "Permis G (frontalier) mais adresse en Suisse", {});
@@ -215,9 +216,11 @@ export function trier(candidatComplet) {
       (concret ? ` · description concrète (${[duree !== null && `durée citée ≈ ${Math.round(duree / 12 * 10) / 10} an(s)`, ctx && "contexte", taches.length >= 2 && `tâches : ${taches.join(", ")}`].filter(Boolean).join(", ")})` : " · description trop vague pour un point de plus"),
   });
   const premiere = chercher(c.texte_experience, MOTIFS.premiere_fois);
-  if (["plus_2", "plus_5"].includes(c.experience_tranche) && ((duree !== null && duree < 18) || premiere)) {
+  // Une durée longue citée l'emporte sur « première expérience en Suisse » (expérience faite ailleurs).
+  if (["plus_2", "plus_5"].includes(c.experience_tranche) && ((duree !== null && duree < 18) || (premiere && (duree === null || duree < 18)))) {
     alerte("EXPERIENCE_INCOHERENTE", premiere ? `Tranche « ${libelleTranche(c.experience_tranche)} » mais le texte dit : « ${premiere} »` : `Tranche « ${libelleTranche(c.experience_tranche)} » mais le texte cite ≈ ${duree} mois`);
   }
+  if (c.experience_tranche === "moins_1") alerte("EXPERIENCE_COURTE", "Moins d'un an d'expérience pour un profil publié « expérimenté·e »");
   if (!concret) alerte("TEXTE_VAGUE", nbMots(c.texte_experience) < REGLES.mots_min_texte ? "Description de l'expérience trop courte pour en juger" : "Description sans durée, lieu ni tâches précises");
 
   // 4. Fiabilité (max 3) : question comportementale « une fois où vous n'avez pas pu venir »
@@ -230,6 +233,7 @@ export function trier(candidatComplet) {
     preuve: fia ? [prev && `prévient : « ${prev} »`, del && `à temps : « ${del} »`, sol && `propose une solution : « ${sol} »`].filter(Boolean).filter((v, i, a) => a.indexOf(v) === i).join(" · ") : "Aucun comportement concret décrit",
   });
   if (fia === 0) alerte("FIABILITE_NON_DECRITE", "La réponse ne décrit pas ce que la personne fait quand elle ne peut pas venir");
+  if (fia === 1) alerte("FIABILITE_FAIBLE", "Un seul bon réflexe décrit sur trois (prévenir, à temps, proposer une solution)");
 
   // 5. Disponibilité (max 2)
   const demi = Object.values(c.disponibilites || {}).reduce((s, v) => s + (v ? v.length : 0), 0);

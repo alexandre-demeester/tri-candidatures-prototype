@@ -104,7 +104,7 @@
   <div class="deux">
     <div class="carte" id="accord"></div>
     <div class="carte">
-      <h3>Tests automatiques (13 passent, 1 limite connue)</h3>
+      <h3>Tests automatiques (16 passent, 1 limite connue)</h3>
       <ul class="serre petit">
         <li><b>Équité</b> : sur les 30 candidatures, changer nom, e-mail, téléphone et adresse ne change rien au tri.</li>
         <li><b>Reproductible</b> : deux exécutions donnent exactement le même résultat.</li>
@@ -112,9 +112,15 @@
         <li><b>Prudence</b> : une donnée incohérente (permis G avec une adresse en Suisse, code postal inconnu) envoie en relecture humaine, quel que soit le score.</li>
         <li><b>Négation</b> : « je n'ai pas prévenu » ne rapporte rien ; « si je ne peux pas venir, j'appelle la veille » rapporte bien.</li>
         <li><b>Bug trouvé par les tests</b> : « dix-huit mois » était lu « huit mois ». Corrigé : mieux vaut ne lire aucune durée qu'une durée fausse.</li>
+        <li><b>Codes postaux</b> : les 928 NPA de Suisse romande du répertoire officiel des localités (swisstopo, données ouvertes) ; un code introuvable part en relecture, il n'est jamais deviné.</li>
         <li><b>Limite connue, non corrigée</b> : les nombres composés en lettres (« dix-huit », « un an et demi ») ne sont pas lus.</li>
       </ul>
       <p class="doux petit">Reproduire : <code>npm test</code> puis <code>npm run accord</code>. Aucune dépendance, Node 20 ou plus.</p>
+      <h3 style="margin-top:14px">Journal des règles</h3>
+      <ul class="serre petit">
+        <li><b>v1.0</b> : première version, gelée dans git.</li>
+        <li><b>v1.1</b>, après une relecture critique et <i>avant</i> le tri humain : codes postaux officiels (Cossonay partait en relecture faute d'être connu) ; six ans d'hôtel à l'étranger ne sont plus une incohérence parce que le texte dit « première expérience en Suisse » ; moins d'un an d'expérience ou un seul bon réflexe de fiabilité donnent une question et empêchent l'appel prioritaire.</li>
+      </ul>
     </div>
   </div>
 </section>
@@ -150,6 +156,7 @@
       <ul class="serre">
         <li><b>Pas dans la décision.</b> Écarter ou appeler quelqu'un pour un emploi doit pouvoir s'expliquer ligne par ligne. Les règles sont fixes, lisibles dans un seul fichier, et chaque point cite la phrase qui le justifie.</li>
         <li><b>Dans la fabrication.</b> L'IA (Claude) a servi à rédiger les 30 candidatures fictives, à proposer le barème et à écrire le code. Chaque étape a été relue.</li>
+        <li><b>Ce que le tri n'apporte pas.</b> Les refus pour permis ou casier existent déjà : votre formulaire s'arrête sur un écran de refus. L'apport est ailleurs : l'ordre des appels, les questions préparées, et les dossiers incohérents repérés avant qu'on décroche.</li>
         <li><b>Dans la vérification, à l'envers.</b> Le tri humain a été fait à l'aveugle, sans voir les sorties de l'outil, après le gel des règles (visible dans l'historique git).</li>
       </ul>
     </div>
@@ -158,7 +165,7 @@
       <ul class="serre">
         <li>Le jeu de test a été écrit par la même main que les règles : l'accord mesuré est un plafond, pas une promesse. Le vrai test, ce sont 50 vraies candidatures anonymisées.</li>
         <li>Les mots-clés ratent des tournures (synonymes, fautes, phrases indirectes). Un LLM les lirait mieux ; il servirait alors à proposer, jamais à décider.</li>
-        <li>Les codes postaux ne couvrent que les localités du jeu : en vrai, brancher la liste officielle et publique de la Poste. Distances à vol d'oiseau.</li>
+        <li>Distances à vol d'oiseau : Bulle et Fribourg sont à 22 km mais à 30 minutes en train direct. Brancher un calcul d'itinéraire serait la prochaine étape. Côté France, seulement 7 communes frontalières.</li>
         <li>Les « zones peu desservies » sont une hypothèse à valider avec l'équipe qui recrute.</li>
       </ul>
     </div>
