@@ -3,7 +3,18 @@ import { trier, FILES, ZONES, libelleTranche, libelleHorizon, libelleTransport }
 const ORDRE = ["prioritaire", "a_preparer", "a_revoir", "refus"];
 const A_REVOIR = new Set(["PERMIS_ADRESSE", "EXPERIENCE_INCOHERENTE", "NPA_INCONNU"]);
 const $ = (id) => document.getElementById(id);
-const esc = (s) => String(s ?? "").replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+// Échappement HTML + espaces insécables de la typographie française (« », : ? !)
+const esc = (s) => String(s ?? "").replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]))
+  .replace(/« /g, "«\u00a0").replace(/ (»|:|\?|!)/g, "\u00a0$1");
+const COURT = {
+  PERMIS_ADRESSE: "Permis et adresse à vérifier", EXPERIENCE_INCOHERENTE: "Expérience contredite par le texte",
+  NPA_INCONNU: "Code postal introuvable", TEXTE_VAGUE: "Expérience décrite trop vaguement",
+  FIABILITE_NON_DECRITE: "Fiabilité non décrite", FIABILITE_FAIBLE: "Fiabilité : un réflexe sur trois",
+  EXPERIENCE_COURTE: "Moins d'un an d'expérience", ZONE_ELOIGNEE: "Zone éloignée du domicile",
+  TP_ZONE_PEU_DESSERVIE: "Zone peu desservie en transports", HEURES_SUPERIEURES_DISPO: "Heures voulues > créneaux",
+  HORIZON_COURT: "Disponible moins de 3 mois", FRANCAIS_A_VERIFIER: "Français à vérifier",
+  SMARTPHONE: "Pas à l'aise avec l'application", DISPO_NON_RENSEIGNEE: "Aucun créneau renseigné",
+};
 const localite = (c) => c.adresse.split(",").pop().trim().replace(/^\d+\s*/, "");
 
 const candidats = await (await fetch("data/candidats.json")).json();
@@ -48,7 +59,7 @@ function rendreFile() {
     <button class="ligne f-${r.file} ${c.id === choisi ? "on" : ""}" data-id="${c.id}">
       <div class="haut"><span><b>${esc(c.prenom)} ${esc(c.nom[0])}.</b> <span class="doux petit">${esc(localite(c))}</span></span>
       <span class="score">${r.file === "refus" ? "" : r.score + "/10"}</span></div>
-      <div>${r.file === "refus" ? `<span class="puce">${esc(r.motifs_refus[0])}</span>` : r.alertes.map((a) => `<span class="puce">${esc(a.message.split(" (")[0].slice(0, 60))}</span>`).join("")}</div>
+      <div>${r.file === "refus" ? `<span class="puce">${esc(r.motifs_refus[0])}</span>` : r.alertes.map((a) => `<span class="puce">${esc(COURT[a.code] || a.code)}</span>`).join("")}</div>
     </button>`).join("");
   $("liste").querySelectorAll(".ligne").forEach((b) => (b.onclick = () => { choisi = b.dataset.id; rendreFile(); if (innerWidth < 820) $("detail").scrollIntoView({ behavior: "smooth" }); }));
   const t = tries.find((x) => x.c.id === choisi);

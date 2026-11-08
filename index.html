@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex">
+<link rel="icon" href="data:,">
 <title>Tri des candidatures · prototype MénageSimple</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -72,11 +73,11 @@
 <header>
   <div class="sur">Prototype candidat · non affilié à MénageSimple · données 100 % fictives</div>
   <h1>Moins d'appels pour dire non.<br>Tri des candidatures d'intervenant·e·s pour MénageSimple</h1>
-  <p>MénageSimple retient <b>moins de 5 % des candidatures</b>, après « une série d'entretiens ». Son formulaire public ne filtre que le permis et le casier : tout le reste (l'expérience réelle, la fiabilité, les créneaux, la zone par rapport au moyen de transport) se découvre au téléphone. Ce prototype trie les candidatures <b>avant</b> l'appel, explique chaque décision avec la phrase du candidat qui la justifie, et prépare les questions à poser.</p>
+  <p>MénageSimple retient <b>moins de 5 % des candidatures</b>, après «&nbsp;une série d'entretiens&nbsp;». Son formulaire public ne filtre que le permis et le casier&nbsp;: tout le reste (l'expérience réelle, la fiabilité, les créneaux, la zone par rapport au moyen de transport) se découvre au téléphone. Ce prototype trie les candidatures <b>avant</b> l'appel, explique chaque décision avec la phrase du candidat qui la justifie, et prépare les questions à poser.</p>
   <div class="chiffres">
     <div class="chiffre"><b id="k-total">30</b>candidatures fictives, champs identiques au formulaire public, plus 4 questions proposées</div>
     <div class="chiffre"><b id="k-accord">en attente</b>d'accord avec un tri humain fait à l'aveugle</div>
-    <div class="chiffre"><b>0 CHF</b>par candidature : règles fixes, aucun appel à une IA payante, résultat identique à chaque fois</div>
+    <div class="chiffre"><b>0 CHF</b>par candidature&nbsp;: règles fixes, aucun appel à une IA payante, résultat identique à chaque fois</div>
   </div>
 </header>
 
@@ -106,20 +107,20 @@
     <div class="carte">
       <h3>Tests automatiques (16 passent, 1 limite connue)</h3>
       <ul class="serre petit">
-        <li><b>Équité</b> : sur les 30 candidatures, changer nom, e-mail, téléphone et adresse ne change rien au tri.</li>
-        <li><b>Reproductible</b> : deux exécutions donnent exactement le même résultat.</li>
-        <li><b>Critères éliminatoires</b> : un refus tombe même sur un excellent profil.</li>
-        <li><b>Prudence</b> : une donnée incohérente (permis G avec une adresse en Suisse, code postal inconnu) envoie en relecture humaine, quel que soit le score.</li>
-        <li><b>Négation</b> : « je n'ai pas prévenu » ne rapporte rien ; « si je ne peux pas venir, j'appelle la veille » rapporte bien.</li>
-        <li><b>Bug trouvé par les tests</b> : « dix-huit mois » était lu « huit mois ». Corrigé : mieux vaut ne lire aucune durée qu'une durée fausse.</li>
-        <li><b>Codes postaux</b> : les 928 NPA de Suisse romande du répertoire officiel des localités (swisstopo, données ouvertes) ; un code introuvable part en relecture, il n'est jamais deviné.</li>
-        <li><b>Limite connue, non corrigée</b> : les nombres composés en lettres (« dix-huit », « un an et demi ») ne sont pas lus.</li>
+        <li><b>Équité</b>&nbsp;: sur les 30 candidatures, changer nom, e-mail, téléphone et adresse ne change rien au tri.</li>
+        <li><b>Reproductible</b>&nbsp;: deux exécutions donnent exactement le même résultat.</li>
+        <li><b>Critères éliminatoires</b>&nbsp;: un refus tombe même sur un excellent profil.</li>
+        <li><b>Prudence</b>&nbsp;: une donnée incohérente (permis G avec une adresse en Suisse, code postal inconnu) envoie en relecture humaine, quel que soit le score.</li>
+        <li><b>Négation</b>&nbsp;: «&nbsp;je n'ai pas prévenu&nbsp;» ne rapporte rien ; «&nbsp;si je ne peux pas venir, j'appelle la veille&nbsp;» rapporte bien.</li>
+        <li><b>Bug trouvé par les tests</b>&nbsp;: «&nbsp;dix-huit mois&nbsp;» était lu «&nbsp;huit mois&nbsp;». Corrigé&nbsp;: mieux vaut ne lire aucune durée qu'une durée fausse.</li>
+        <li><b>Codes postaux</b>&nbsp;: les 928 NPA de Suisse romande du répertoire officiel des localités (swisstopo, données ouvertes) ; un code introuvable part en relecture, il n'est jamais deviné.</li>
+        <li><b>Limite connue, non corrigée</b>&nbsp;: les nombres composés en lettres («&nbsp;dix-huit&nbsp;», «&nbsp;un an et demi&nbsp;») ne sont pas lus.</li>
       </ul>
-      <p class="doux petit">Reproduire : <code>npm test</code> puis <code>npm run accord</code>. Aucune dépendance, Node 20 ou plus.</p>
+      <p class="doux petit">Reproduire&nbsp;: <code>npm test</code> puis <code>npm run accord</code>. Aucune dépendance, Node 20 ou plus.</p>
       <h3 style="margin-top:14px">Journal des règles</h3>
       <ul class="serre petit">
-        <li><b>v1.0</b> : première version, gelée dans git.</li>
-        <li><b>v1.1</b>, après une relecture critique et <i>avant</i> le tri humain : codes postaux officiels (Cossonay partait en relecture faute d'être connu) ; six ans d'hôtel à l'étranger ne sont plus une incohérence parce que le texte dit « première expérience en Suisse » ; moins d'un an d'expérience ou un seul bon réflexe de fiabilité donnent une question et empêchent l'appel prioritaire.</li>
+        <li><b>v1.0</b>&nbsp;: première version, gelée dans git.</li>
+        <li><b>v1.1</b>, après une relecture critique et <i>avant</i> le tri humain&nbsp;: codes postaux officiels (Cossonay partait en relecture faute d'être connu) ; six ans d'hôtel à l'étranger ne sont plus une incohérence parce que le texte dit «&nbsp;première expérience en Suisse&nbsp;» ; moins d'un an d'expérience ou un seul bon réflexe de fiabilité donnent une question et empêchent l'appel prioritaire.</li>
       </ul>
     </div>
   </div>
@@ -131,18 +132,18 @@
     <div class="carte">
       <h3>Trois défauts relevés sur le formulaire public</h3>
       <ul class="serre petit">
-        <li>Les tranches d'expérience sautent de « Moins de 1 Ans » à « Plus de 2 Ans » : une personne avec 18 mois d'expérience ne peut pas répondre juste. Ajouter « 1 à 2 ans ».</li>
-        <li>Coquilles visibles par chaque candidat : « quelque question », « Transports Publiques », « Ans ».</li>
-        <li>La page d'accueil dit à la fois « produits de nettoyage inclus » et « votre agent de ménage apporte ses propres produits ». À trancher, côté client comme côté recrutement.</li>
+        <li>Les tranches d'expérience sautent de «&nbsp;Moins de 1 Ans&nbsp;» à «&nbsp;Plus de 2 Ans&nbsp;»&nbsp;: une personne avec 18 mois d'expérience ne peut pas répondre juste. Ajouter «&nbsp;1 à 2 ans&nbsp;».</li>
+        <li>Coquilles visibles par chaque candidat&nbsp;: «&nbsp;quelque question&nbsp;», «&nbsp;Transports Publiques&nbsp;», «&nbsp;Ans&nbsp;».</li>
+        <li>La page d'accueil dit à la fois «&nbsp;produits de nettoyage inclus&nbsp;» et «&nbsp;votre agent de ménage apporte ses propres produits&nbsp;». À trancher, côté client comme côté recrutement.</li>
       </ul>
     </div>
     <div class="carte">
       <h3>Quatre questions à ajouter (1 minute de plus pour le candidat)</h3>
       <ul class="serre petit">
-        <li><b>Créneaux</b> : jours et demi-journées disponibles, à la place du seul volume d'heures.</li>
-        <li><b>Dernier emploi</b> : « chez qui, combien de temps, quelles tâches ». Texte libre.</li>
-        <li><b>Fiabilité</b> : « une fois où vous n'avez pas pu venir : qu'avez-vous fait ? ». La question comportementale qui remplace « vous respectez vos engagements » à cocher.</li>
-        <li><b>Engagement</b> : sur combien de mois, puisque les clients veulent la même personne chaque semaine. Et une référence possible, oui ou non.</li>
+        <li><b>Créneaux</b>&nbsp;: jours et demi-journées disponibles, à la place du seul volume d'heures.</li>
+        <li><b>Dernier emploi</b>&nbsp;: «&nbsp;chez qui, combien de temps, quelles tâches&nbsp;». Texte libre.</li>
+        <li><b>Fiabilité</b>&nbsp;: «&nbsp;une fois où vous n'avez pas pu venir&nbsp;: qu'avez-vous fait ?&nbsp;». La question comportementale qui remplace «&nbsp;vous respectez vos engagements&nbsp;» à cocher.</li>
+        <li><b>Engagement</b>&nbsp;: sur combien de mois, puisque les clients veulent la même personne chaque semaine. Et une référence possible, oui ou non.</li>
       </ul>
     </div>
   </div>
@@ -156,24 +157,24 @@
       <ul class="serre">
         <li><b>Pas dans la décision.</b> Écarter ou appeler quelqu'un pour un emploi doit pouvoir s'expliquer ligne par ligne. Les règles sont fixes, lisibles dans un seul fichier, et chaque point cite la phrase qui le justifie.</li>
         <li><b>Dans la fabrication.</b> L'IA (Claude) a servi à rédiger les 30 candidatures fictives, à proposer le barème et à écrire le code. Chaque étape a été relue.</li>
-        <li><b>Ce que le tri n'apporte pas.</b> Les refus pour permis ou casier existent déjà : votre formulaire s'arrête sur un écran de refus. L'apport est ailleurs : l'ordre des appels, les questions préparées, et les dossiers incohérents repérés avant qu'on décroche.</li>
+        <li><b>Ce que le tri n'apporte pas.</b> Les refus pour permis ou casier existent déjà&nbsp;: votre formulaire s'arrête sur un écran de refus. L'apport est ailleurs&nbsp;: l'ordre des appels, les questions préparées, et les dossiers incohérents repérés avant qu'on décroche.</li>
         <li><b>Dans la vérification, à l'envers.</b> Le tri humain a été fait à l'aveugle, sans voir les sorties de l'outil, après le gel des règles (visible dans l'historique git).</li>
       </ul>
     </div>
     <div class="carte petit">
       <h3>Limites qui restent</h3>
       <ul class="serre">
-        <li>Le jeu de test a été écrit par la même main que les règles : l'accord mesuré est un plafond, pas une promesse. Le vrai test, ce sont 50 vraies candidatures anonymisées.</li>
+        <li>Le jeu de test a été écrit par la même main que les règles&nbsp;: l'accord mesuré est un plafond, pas une promesse. Le vrai test, ce sont 50 vraies candidatures anonymisées.</li>
         <li>Les mots-clés ratent des tournures (synonymes, fautes, phrases indirectes). Un LLM les lirait mieux ; il servirait alors à proposer, jamais à décider.</li>
-        <li>Distances à vol d'oiseau : Bulle et Fribourg sont à 22 km mais à 30 minutes en train direct. Brancher un calcul d'itinéraire serait la prochaine étape. Côté France, seulement 7 communes frontalières.</li>
-        <li>Les « zones peu desservies » sont une hypothèse à valider avec l'équipe qui recrute.</li>
+        <li>Distances à vol d'oiseau jusqu'au centre approximatif de chaque zone&nbsp;: 29 km entre Bulle et la zone de Fribourg ne disent rien du temps de trajet réel. Brancher un calcul d'itinéraire serait la prochaine étape. Côté France, seulement 7 communes frontalières.</li>
+        <li>Les «&nbsp;zones peu desservies&nbsp;» sont une hypothèse à valider avec l'équipe qui recrute.</li>
       </ul>
     </div>
   </div>
 </section>
 
 <footer>
-  Prototype réalisé par Alexandre Demeester pour le deuxième tour du poste Digital Projects &amp; AI Assistant (Stonks Holding AG). Non affilié à MénageSimple, aucune donnée réelle : toutes les candidatures sont inventées. Informations publiques consultées le 8 novembre 2026 sur menagesimple.com et son formulaire de candidature.
+  Prototype réalisé par Alexandre Demeester pour le deuxième tour du poste Digital Projects &amp; AI Assistant (Stonks Holding AG). Non affilié à MénageSimple, aucune donnée réelle&nbsp;: toutes les candidatures sont inventées. Informations publiques consultées le 8 novembre 2026 sur menagesimple.com et son formulaire de candidature.
 </footer>
 
 <script type="module" src="src/app.js"></script>

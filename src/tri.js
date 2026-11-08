@@ -148,6 +148,13 @@ const MOTIFS = {
   premiere_fois: /(premiere experience|jamais travaille|jamais fait|pas encore d'experience|je debute)/,
 };
 
+// Une même phrase qui coche plusieurs réflexes n'est citée qu'une fois : « … » (prévient, à temps)
+function regrouperPreuves(paires) {
+  const parPhrase = new Map();
+  for (const [phrase, reflexe] of paires) if (phrase) parPhrase.set(phrase, [...(parPhrase.get(phrase) || []), reflexe]);
+  return [...parPhrase].map(([phrase, r]) => `« ${phrase} » (${r.join(", ")})`).join(" · ");
+}
+
 // ---------------------------------------------------------------------------
 // Géographie
 // ---------------------------------------------------------------------------
@@ -230,7 +237,7 @@ export function trier(candidatComplet) {
   const fia = [prev, del, sol].filter(Boolean).length;
   res.detail.push({
     critere: "Fiabilité", points: fia, max: 3,
-    preuve: fia ? [prev && `prévient : « ${prev} »`, del && `à temps : « ${del} »`, sol && `propose une solution : « ${sol} »`].filter(Boolean).filter((v, i, a) => a.indexOf(v) === i).join(" · ") : "Aucun comportement concret décrit",
+    preuve: fia ? regrouperPreuves([[prev, "prévient"], [del, "à temps"], [sol, "propose une solution"]]) : "Aucun comportement concret décrit",
   });
   if (fia === 0) alerte("FIABILITE_NON_DECRITE", "La réponse ne décrit pas ce que la personne fait quand elle ne peut pas venir");
   if (fia === 1) alerte("FIABILITE_FAIBLE", "Un seul bon réflexe décrit sur trois (prévenir, à temps, proposer une solution)");
