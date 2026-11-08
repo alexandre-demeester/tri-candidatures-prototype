@@ -1,0 +1,1294 @@
+[
+ {
+  "id": "C01",
+  "fictif": true,
+  "prenom": "Ana",
+  "nom": "Ferreira",
+  "email": "candidat01@exemple.invalid",
+  "telephone": "+41 79 000 00 01",
+  "adresse": "Rue de la Borde 12, 1004 Lausanne",
+  "npa": "1004",
+  "pays": "CH",
+  "permis": "B",
+  "casier_vierge": true,
+  "experience_tranche": "plus_5",
+  "heures_semaine": "20-30",
+  "transport": "tp",
+  "zones": [
+   "Vaud - Lausanne et alentours"
+  ],
+  "disponibilites": {
+   "lun": [
+    "matin"
+   ],
+   "mar": [
+    "matin",
+    "apres-midi"
+   ],
+   "mer": [
+    "matin"
+   ],
+   "jeu": [
+    "matin",
+    "apres-midi"
+   ],
+   "ven": [
+    "matin"
+   ]
+  },
+  "horizon": "plus_1_an",
+  "reference": true,
+  "francais": "courant",
+  "smartphone": true,
+  "services": [
+   "regulier",
+   "repassage"
+  ],
+  "texte_experience": "J'ai travaillé 6 ans chez des particuliers à Lausanne, surtout des familles avec enfants. Je fais les sols, la cuisine, les salles de bain et le repassage.",
+  "texte_fiabilite": "Une fois mon fils était malade. J'ai appelé la cliente la veille au soir et on a décalé au lendemain."
+ },
+ {
+  "id": "C02",
+  "fictif": true,
+  "prenom": "Besnik",
+  "nom": "Krasniqi",
+  "email": "candidat02@exemple.invalid",
+  "telephone": "+41 79 000 00 02",
+  "adresse": "Avenue du Silo 4, 1020 Renens",
+  "npa": "1020",
+  "pays": "CH",
+  "permis": "C",
+  "casier_vierge": true,
+  "experience_tranche": "plus_2",
+  "heures_semaine": "30+",
+  "transport": "voiture",
+  "zones": [
+   "Vaud - Lausanne et alentours",
+   "Vaud - Echallens"
+  ],
+  "disponibilites": {
+   "lun": [
+    "matin",
+    "apres-midi"
+   ],
+   "mar": [
+    "matin",
+    "apres-midi"
+   ],
+   "mer": [
+    "matin",
+    "apres-midi"
+   ],
+   "jeu": [
+    "matin",
+    "apres-midi"
+   ],
+   "ven": [
+    "matin",
+    "apres-midi"
+   ]
+  },
+  "horizon": "plus_1_an",
+  "reference": true,
+  "francais": "courant",
+  "smartphone": true,
+  "services": [
+   "regulier",
+   "a_fond",
+   "fin_de_bail",
+   "vitres"
+  ],
+  "texte_experience": "Trois ans dans une entreprise de nettoyage, surtout des bureaux et des cabinets médicaux, puis deux ans chez des particuliers. Aspirateur, serpillière, sanitaires, vitres.",
+  "texte_fiabilite": "Ça m'est arrivé avec une panne de voiture. J'ai envoyé un message tout de suite au client et j'ai proposé de venir l'après-midi."
+ },
+ {
+  "id": "C03",
+  "fictif": true,
+  "prenom": "Maria",
+  "nom": "Rossi",
+  "email": "candidat03@exemple.invalid",
+  "telephone": "+41 79 000 00 03",
+  "adresse": "Rue de Carouge 40, 1205 Genève",
+  "npa": "1205",
+  "pays": "CH",
+  "permis": "suisse",
+  "casier_vierge": true,
+  "experience_tranche": "plus_5",
+  "heures_semaine": "10-20",
+  "transport": "tp",
+  "zones": [
+   "Genève et alentours"
+  ],
+  "disponibilites": {
+   "lun": [
+    "matin"
+   ],
+   "mer": [
+    "matin"
+   ],
+   "ven": [
+    "matin"
+   ]
+  },
+  "horizon": "plus_1_an",
+  "reference": false,
+  "francais": "courant",
+  "smartphone": true,
+  "services": [
+   "regulier"
+  ],
+  "texte_experience": "Depuis 2015 je fais le ménage chez des personnes âgées du quartier. La poussière, le linge, la cuisine, parfois les courses.",
+  "texte_fiabilite": "Je préviens toujours la personne à l'avance par téléphone, et je propose un autre jour dans la même semaine."
+ },
+ {
+  "id": "C04",
+  "fictif": true,
+  "prenom": "Tesfaye",
+  "nom": "Gebremedhin",
+  "email": "candidat04@exemple.invalid",
+  "telephone": "+41 79 000 00 04",
+  "adresse": "Rue des Moulins 8, 1400 Yverdon-les-Bains",
+  "npa": "1400",
+  "pays": "CH",
+  "permis": "B",
+  "casier_vierge": true,
+  "experience_tranche": "plus_2",
+  "heures_semaine": "20-30",
+  "transport": "tp",
+  "zones": [
+   "Vaud - Yverdon et alentours"
+  ],
+  "disponibilites": {
+   "lun": [
+    "matin",
+    "apres-midi"
+   ],
+   "mar": [
+    "matin",
+    "apres-midi"
+   ],
+   "mer": [
+    "matin",
+    "apres-midi"
+   ]
+  },
+  "horizon": "3_12_mois",
+  "reference": true,
+  "francais": "intermediaire",
+  "smartphone": true,
+  "services": [
+   "regulier"
+  ],
+  "texte_experience": "2 ans à l'hôtel à Yverdon comme femme de chambre : les lits, les draps, les salles de bain. Avant j'ai aidé une famille pour le ménage.",
+  "texte_fiabilite": "J'ai prévenu mon chef le matin même parce que le bus était en grève."
+ },
+ {
+  "id": "C05",
+  "fictif": true,
+  "prenom": "Lucia",
+  "nom": "Martins",
+  "email": "candidat05@exemple.invalid",
+  "telephone": "+41 79 000 00 05",
+  "adresse": "Route de Divonne 3, 1260 Nyon",
+  "npa": "1260",
+  "pays": "CH",
+  "permis": "B",
+  "casier_vierge": true,
+  "experience_tranche": "moins_1",
+  "heures_semaine": "5-10",
+  "transport": "voiture",
+  "zones": [
+   "Vaud - Nyon et alentours"
+  ],
+  "disponibilites": {
+   "mar": [
+    "matin"
+   ],
+   "jeu": [
+    "matin"
+   ]
+  },
+  "horizon": "3_12_mois",
+  "reference": false,
+  "francais": "courant",
+  "smartphone": true,
+  "services": [
+   "regulier"
+  ],
+  "texte_experience": "J'ai fait quelques mois de ménage chez une voisine.",
+  "texte_fiabilite": "Je ne suis jamais absente."
+ },
+ {
+  "id": "C06",
+  "fictif": true,
+  "prenom": "Kevin",
+  "nom": "Dubois",
+  "email": "candidat06@exemple.invalid",
+  "telephone": "+41 79 000 00 06",
+  "adresse": "Rue du Rhône 22, 1950 Sion",
+  "npa": "1950",
+  "pays": "CH",
+  "permis": "suisse",
+  "casier_vierge": true,
+  "experience_tranche": "jamais",
+  "heures_semaine": "10-20",
+  "transport": "voiture",
+  "zones": [
+   "Valais - Sion et Sierre"
+  ],
+  "disponibilites": {
+   "lun": [
+    "matin",
+    "apres-midi"
+   ],
+   "mar": [
+    "matin",
+    "apres-midi"
+   ]
+  },
+  "horizon": "3_12_mois",
+  "reference": false,
+  "francais": "courant",
+  "smartphone": true,
+  "services": [
+   "regulier"
+  ],
+  "texte_experience": "Je n'ai jamais fait de ménage professionnellement mais je suis très motivé, je tiens mon appartement impeccable et j'apprends vite.",
+  "texte_fiabilite": "Au travail je préviens toujours mon responsable à l'avance si j'ai un empêchement."
+ },
+ {
+  "id": "C07",
+  "fictif": true,
+  "prenom": "Fatima",
+  "nom": "Benali",
+  "email": "candidat07@exemple.invalid",
+  "telephone": "+41 79 000 00 07",
+  "adresse": "Rue du Salève 15, 74100 Annemasse",
+  "npa": "74100",
+  "pays": "FR",
+  "permis": "G",
+  "casier_vierge": true,
+  "experience_tranche": "plus_5",
+  "heures_semaine": "20-30",
+  "transport": "voiture",
+  "zones": [
+   "Genève et alentours"
+  ],
+  "disponibilites": {
+   "lun": [
+    "matin",
+    "apres-midi"
+   ],
+   "mar": [
+    "matin",
+    "apres-midi"
+   ],
+   "mer": [
+    "matin"
+   ],
+   "jeu": [
+    "matin",
+    "apres-midi"
+   ],
+   "ven": [
+    "matin"
+   ]
+  },
+  "horizon": "plus_1_an",
+  "reference": true,
+  "francais": "courant",
+  "smartphone": true,
+  "services": [
+   "regulier",
+   "repassage",
+   "vitres"
+  ],
+  "texte_experience": "Huit ans de ménage chez des particuliers à Genève et Annemasse : villas, appartements, repassage, vitres, cuisine.",
+  "texte_fiabilite": "Quand ma fille a eu la varicelle, j'ai prévenu mes clientes deux jours avant et une collègue m'a remplacée."
+ },
+ {
+  "id": "C08",
+  "fictif": true,
+  "prenom": "João",
+  "nom": "Pereira",
+  "email": "candidat08@exemple.invalid",
+  "telephone": "+41 79 000 00 08",
+  "adresse": "Rue de Lyon 51, 1201 Genève",
+  "npa": "1201",
+  "pays": "CH",
+  "permis": "G",
+  "casier_vierge": true,
+  "experience_tranche": "plus_2",
+  "heures_semaine": "20-30",
+  "transport": "tp",
+  "zones": [
+   "Genève et alentours"
+  ],
+  "disponibilites": {
+   "lun": [
+    "matin",
+    "apres-midi"
+   ],
+   "mar": [
+    "matin",
+    "apres-midi"
+   ],
+   "mer": [
+    "matin",
+    "apres-midi"
+   ]
+  },
+  "horizon": "plus_1_an",
+  "reference": true,
+  "francais": "courant",
+  "smartphone": true,
+  "services": [
+   "regulier",
+   "a_fond"
+  ],
+  "texte_experience": "J'ai travaillé 4 ans pour une entreprise de nettoyage à Genève : bureaux, écoles, sols, sanitaires et vitres.",
+  "texte_fiabilite": "J'ai eu un accident de vélo. J'ai appelé mon responsable tout de suite et un collègue m'a remplacé."
+ },
+ {
+  "id": "C09",
+  "fictif": true,
+  "prenom": "Elena",
+  "nom": "Popescu",
+  "email": "candidat09@exemple.invalid",
+  "telephone": "+41 79 000 00 09",
+  "adresse": "Rue de l'Écluse 30, 2000 Neuchâtel",
+  "npa": "2000",
+  "pays": "CH",
+  "permis": "B",
+  "casier_vierge": true,
+  "experience_tranche": "plus_5",
+  "heures_semaine": "20-30",
+  "transport": "tp",
+  "zones": [
+   "Neuchâtel - Ville et alentours"
+  ],
+  "disponibilites": {
+   "lun": [
+    "matin",
+    "apres-midi"
+   ],
+   "mar": [
+    "matin",
+    "apres-midi"
+   ],
+   "mer": [
+    "matin"
+   ],
+   "jeu": [
+    "matin"
+   ]
+  },
+  "horizon": "plus_1_an",
+  "reference": true,
+  "francais": "intermediaire",
+  "smartphone": true,
+  "services": [
+   "regulier"
+  ],
+  "texte_experience": "C'est ma première expérience en Suisse. En Roumanie j'ai fait le ménage pendant 6 ans dans un hôtel : chambres, draps, sanitaires.",
+  "texte_fiabilite": "À l'hôtel, si je ne pouvais pas venir, je prévenais la gouvernante la veille et on échangeait avec une collègue."
+ },
+ {
+  "id": "C10",
+  "fictif": true,
+  "prenom": "Sandra",
+  "nom": "Oliveira",
+  "email": "candidat10@exemple.invalid",
+  "telephone": "+41 79 000 00 10",
+  "adresse": "Avenue des Alpes 70, 1820 Montreux",
+  "npa": "1820",
+  "pays": "CH",
+  "permis": "C",
+  "casier_vierge": true,
+  "experience_tranche": "plus_2",
+  "heures_semaine": "10-20",
+  "transport": "tp",
+  "zones": [
+   "Vaud - Montreux-Vevey"
+  ],
+  "disponibilites": {
+   "mar": [
+    "matin",
+    "apres-midi"
+   ],
+   "jeu": [
+    "matin",
+    "apres-midi"
+   ]
+  },
+  "horizon": "plus_1_an",
+  "reference": true,
+  "francais": "courant",
+  "smartphone": true,
+  "services": [
+   "regulier",
+   "repassage"
+  ],
+  "texte_experience": "J'ai travaillé 1 an chez une famille à Vevey, ménage complet et repassage, la cuisine et les salles de bain.",
+  "texte_fiabilite": "J'ai envoyé un SMS à la famille la veille et je suis venue le samedi à la place."
+ },
+ {
+  "id": "C11",
+  "fictif": true,
+  "prenom": "Ardit",
+  "nom": "Berisha",
+  "email": "candidat11@exemple.invalid",
+  "telephone": "+41 79 000 00 11",
+  "adresse": "Avenue de France 18, 1003 Lausanne",
+  "npa": "1003",
+  "pays": "CH",
+  "permis": "aucun",
+  "casier_vierge": true,
+  "experience_tranche": "plus_5",
+  "heures_semaine": "30+",
+  "transport": "tp",
+  "zones": [
+   "Vaud - Lausanne et alentours"
+  ],
+  "disponibilites": {
+   "lun": [
+    "matin",
+    "apres-midi"
+   ],
+   "mar": [
+    "matin",
+    "apres-midi"
+   ],
+   "mer": [
+    "matin",
+    "apres-midi"
+   ],
+   "jeu": [
+    "matin",
+    "apres-midi"
+   ],
+   "ven": [
+    "matin",
+    "apres-midi"
+   ]
+  },
+  "horizon": "plus_1_an",
+  "reference": true,
+  "francais": "courant",
+  "smartphone": true,
+  "services": [
+   "regulier",
+   "a_fond"
+  ],
+  "texte_experience": "Sept ans dans le nettoyage de bureaux et d'appartements, aspirateur, sols, vitres, sanitaires.",
+  "texte_fiabilite": "J'ai toujours prévenu à l'avance et proposé une autre date."
+ },
+ {
+  "id": "C12",
+  "fictif": true,
+  "prenom": "Nathalie",
+  "nom": "Rochat",
+  "email": "candidat12@exemple.invalid",
+  "telephone": "+41 79 000 00 12",
+  "adresse": "Rue de Lausanne 9, 1700 Fribourg",
+  "npa": "1700",
+  "pays": "CH",
+  "permis": "suisse",
+  "casier_vierge": false,
+  "experience_tranche": "plus_5",
+  "heures_semaine": "10-20",
+  "transport": "voiture",
+  "zones": [
+   "Fribourg - Ville et alentours"
+  ],
+  "disponibilites": {
+   "lun": [
+    "matin",
+    "apres-midi"
+   ],
+   "mar": [
+    "matin",
+    "apres-midi"
+   ]
+  },
+  "horizon": "plus_1_an",
+  "reference": true,
+  "francais": "courant",
+  "smartphone": true,
+  "services": [
+   "regulier"
+  ],
+  "texte_experience": "Dix ans chez des particuliers à Fribourg, ménage, linge et repassage, cuisine.",
+  "texte_fiabilite": "Je préviens la veille par téléphone et je rattrape les heures le lendemain."
+ },
+ {
+  "id": "C13",
+  "fictif": true,
+  "prenom": "Rosa",
+  "nom": "Gomes",
+  "email": "candidat13@exemple.invalid",
+  "telephone": "+41 79 000 00 13",
+  "adresse": "Rue de Gruyères 5, 1630 Bulle",
+  "npa": "1630",
+  "pays": "CH",
+  "permis": "C",
+  "casier_vierge": true,
+  "experience_tranche": "plus_5",
+  "heures_semaine": "20-30",
+  "transport": "tp",
+  "zones": [
+   "Fribourg - Bulle",
+   "Fribourg - Ville et alentours"
+  ],
+  "disponibilites": {
+   "lun": [
+    "matin",
+    "apres-midi"
+   ],
+   "mar": [
+    "matin",
+    "apres-midi"
+   ],
+   "mer": [
+    "matin"
+   ],
+   "jeu": [
+    "matin"
+   ]
+  },
+  "horizon": "plus_1_an",
+  "reference": true,
+  "francais": "courant",
+  "smartphone": true,
+  "services": [
+   "regulier",
+   "repassage"
+  ],
+  "texte_experience": "Depuis 2017 je fais le ménage chez trois familles à Bulle : sols, cuisine, salles de bain, repassage.",
+  "texte_fiabilite": "Ma voiture est tombée en panne : j'ai appelé la cliente tout de suite et on a reporté au jeudi."
+ },
+ {
+  "id": "C14",
+  "fictif": true,
+  "prenom": "Mirela",
+  "nom": "Hodžić",
+  "email": "candidat14@exemple.invalid",
+  "telephone": "+41 79 000 00 14",
+  "adresse": "Grand-Rue 2, 1522 Lucens",
+  "npa": "1522",
+  "pays": "CH",
+  "permis": "B",
+  "casier_vierge": true,
+  "experience_tranche": "plus_2",
+  "heures_semaine": "10-20",
+  "transport": "tp",
+  "zones": [
+   "Vaud - Lucens"
+  ],
+  "disponibilites": {
+   "lun": [
+    "matin",
+    "apres-midi"
+   ],
+   "mer": [
+    "matin",
+    "apres-midi"
+   ]
+  },
+  "horizon": "plus_1_an",
+  "reference": true,
+  "francais": "courant",
+  "smartphone": true,
+  "services": [
+   "regulier"
+  ],
+  "texte_experience": "3 ans dans un EMS : chambres, sanitaires, désinfection des surfaces, linge.",
+  "texte_fiabilite": "J'ai prévenu ma cheffe la veille et j'ai rattrapé mes heures le samedi."
+ },
+ {
+  "id": "C15",
+  "fictif": true,
+  "prenom": "Paolo",
+  "nom": "Bianchi",
+  "email": "candidat15@exemple.invalid",
+  "telephone": "+41 79 000 00 15",
+  "adresse": "Avenue de l'Europe 11, 1870 Monthey",
+  "npa": "1870",
+  "pays": "CH",
+  "permis": "B",
+  "casier_vierge": true,
+  "experience_tranche": "plus_2",
+  "heures_semaine": "30+",
+  "transport": "voiture",
+  "zones": [
+   "Valais - Martigny-Aigle-St Maurice"
+  ],
+  "disponibilites": {
+   "lun": [
+    "matin"
+   ],
+   "mar": [
+    "matin"
+   ],
+   "mer": [
+    "matin"
+   ],
+   "jeu": [
+    "matin"
+   ]
+  },
+  "horizon": "plus_1_an",
+  "reference": true,
+  "francais": "courant",
+  "smartphone": true,
+  "services": [
+   "regulier",
+   "a_fond",
+   "fin_de_bail"
+  ],
+  "texte_experience": "Trois ans comme concierge dans des immeubles à Monthey : escaliers, sols, vitres, nettoyage de fin de bail.",
+  "texte_fiabilite": "J'ai appelé la régie la veille et j'ai proposé de venir le samedi matin."
+ },
+ {
+  "id": "C16",
+  "fictif": true,
+  "prenom": "Aylin",
+  "nom": "Demir",
+  "email": "candidat16@exemple.invalid",
+  "telephone": "+41 79 000 00 16",
+  "adresse": "Rue Centrale 20, 1110 Morges",
+  "npa": "1110",
+  "pays": "CH",
+  "permis": "B",
+  "casier_vierge": true,
+  "experience_tranche": "plus_2",
+  "heures_semaine": "10-20",
+  "transport": "tp",
+  "zones": [
+   "Vaud - Lausanne et alentours",
+   "Vaud - Aubonne"
+  ],
+  "disponibilites": {
+   "lun": [
+    "matin",
+    "apres-midi"
+   ],
+   "mar": [
+    "matin",
+    "apres-midi"
+   ],
+   "mer": [
+    "matin",
+    "apres-midi"
+   ]
+  },
+  "horizon": "moins_3_mois",
+  "reference": true,
+  "francais": "courant",
+  "smartphone": true,
+  "services": [
+   "regulier"
+  ],
+  "texte_experience": "Pendant mes études j'ai fait 2 ans de ménage dans un EMS à Morges, les chambres et les sanitaires.",
+  "texte_fiabilite": "J'ai prévenu la responsable une semaine avant pour mes examens et une collègue a pris mes heures."
+ },
+ {
+  "id": "C17",
+  "fictif": true,
+  "prenom": "Ngozi",
+  "nom": "Okafor",
+  "email": "candidat17@exemple.invalid",
+  "telephone": "+41 79 000 00 17",
+  "adresse": "Rue de Livron 6, 1217 Meyrin",
+  "npa": "1217",
+  "pays": "CH",
+  "permis": "B",
+  "casier_vierge": true,
+  "experience_tranche": "plus_2",
+  "heures_semaine": "20-30",
+  "transport": "tp",
+  "zones": [
+   "Genève et alentours"
+  ],
+  "disponibilites": {
+   "lun": [
+    "matin",
+    "apres-midi"
+   ],
+   "mar": [
+    "matin",
+    "apres-midi"
+   ],
+   "mer": [
+    "matin",
+    "apres-midi"
+   ]
+  },
+  "horizon": "plus_1_an",
+  "reference": false,
+  "francais": "debutant",
+  "smartphone": true,
+  "services": [
+   "regulier"
+  ],
+  "texte_experience": "Je travaille 3 ans nettoyage bureaux Genève. Sol, poubelle, toilette, cuisine. Je suis sérieuse et je travaille bien.",
+  "texte_fiabilite": "Si malade je téléphone le chef avant et il trouve autre personne."
+ },
+ {
+  "id": "C18",
+  "fictif": true,
+  "prenom": "Helena",
+  "nom": "Silva",
+  "email": "candidat18@exemple.invalid",
+  "telephone": "+41 79 000 00 18",
+  "adresse": "Rue du Temple 7, 1304 Cossonay",
+  "npa": "1304",
+  "pays": "CH",
+  "permis": "C",
+  "casier_vierge": true,
+  "experience_tranche": "plus_5",
+  "heures_semaine": "20-30",
+  "transport": "voiture",
+  "zones": [
+   "Vaud - Lausanne et alentours",
+   "Vaud - Aubonne"
+  ],
+  "disponibilites": {
+   "lun": [
+    "matin",
+    "apres-midi"
+   ],
+   "mar": [
+    "matin",
+    "apres-midi"
+   ],
+   "mer": [
+    "matin",
+    "apres-midi"
+   ]
+  },
+  "horizon": "plus_1_an",
+  "reference": true,
+  "francais": "courant",
+  "smartphone": true,
+  "services": [
+   "regulier",
+   "repassage"
+  ],
+  "texte_experience": "Six ans chez des particuliers dans la région de Morges et Cossonay : cuisine, salles de bain, sols, repassage.",
+  "texte_fiabilite": "J'ai prévenu la cliente deux jours avant et nous avons décalé au vendredi."
+ },
+ {
+  "id": "C19",
+  "fictif": true,
+  "prenom": "Marco",
+  "nom": "Ferri",
+  "email": "candidat19@exemple.invalid",
+  "telephone": "+41 79 000 00 19",
+  "adresse": "Chemin du Lac 3, 1196 Gland",
+  "npa": "1196",
+  "pays": "CH",
+  "permis": "suisse",
+  "casier_vierge": true,
+  "experience_tranche": "plus_5",
+  "heures_semaine": "10-20",
+  "transport": "voiture",
+  "zones": [
+   "Vaud - Nyon et alentours"
+  ],
+  "disponibilites": {
+   "lun": [
+    "matin",
+    "apres-midi"
+   ],
+   "mer": [
+    "matin",
+    "apres-midi"
+   ]
+  },
+  "horizon": "plus_1_an",
+  "reference": true,
+  "francais": "courant",
+  "smartphone": false,
+  "services": [
+   "regulier",
+   "vitres"
+  ],
+  "texte_experience": "J'ai tenu le ménage de deux villas à Gland pendant 7 ans : sols, vitres, cuisine, linge.",
+  "texte_fiabilite": "J'ai appelé la propriétaire la veille et je suis venu le lendemain."
+ },
+ {
+  "id": "C20",
+  "fictif": true,
+  "prenom": "Daniela",
+  "nom": "Costa",
+  "email": "candidat20@exemple.invalid",
+  "telephone": "+41 79 000 00 20",
+  "adresse": "Rue du Simplon 14, 1800 Vevey",
+  "npa": "1800",
+  "pays": "CH",
+  "permis": "B",
+  "casier_vierge": true,
+  "experience_tranche": "1_2",
+  "heures_semaine": "10-20",
+  "transport": "tp",
+  "zones": [
+   "Vaud - Montreux-Vevey"
+  ],
+  "disponibilites": {
+   "lun": [
+    "matin"
+   ],
+   "mar": [
+    "matin",
+    "apres-midi"
+   ],
+   "jeu": [
+    "matin",
+    "apres-midi"
+   ]
+  },
+  "horizon": "plus_1_an",
+  "reference": true,
+  "francais": "courant",
+  "smartphone": true,
+  "services": [
+   "regulier",
+   "repassage"
+  ],
+  "texte_experience": "J'ai fait dix-huit mois de ménage chez deux familles à Vevey : cuisine, salles de bain, repassage.",
+  "texte_fiabilite": "Je n'ai pas pu prévenir à temps une fois, j'avais oublié mon téléphone. Depuis je mets un rappel la veille."
+ },
+ {
+  "id": "C21",
+  "fictif": true,
+  "prenom": "Inês",
+  "nom": "Rodrigues",
+  "email": "candidat21@exemple.invalid",
+  "telephone": "+41 79 000 00 21",
+  "adresse": "Rue Ancienne 33, 1227 Carouge",
+  "npa": "1227",
+  "pays": "CH",
+  "permis": "C",
+  "casier_vierge": true,
+  "experience_tranche": "plus_5",
+  "heures_semaine": "20-30",
+  "transport": "tp",
+  "zones": [
+   "Genève et alentours"
+  ],
+  "disponibilites": {
+   "lun": [
+    "matin",
+    "apres-midi"
+   ],
+   "mar": [
+    "matin",
+    "apres-midi"
+   ],
+   "mer": [
+    "matin"
+   ],
+   "jeu": [
+    "matin",
+    "apres-midi"
+   ]
+  },
+  "horizon": "plus_1_an",
+  "reference": true,
+  "francais": "courant",
+  "smartphone": true,
+  "services": [
+   "regulier",
+   "a_fond",
+   "repassage"
+  ],
+  "texte_experience": "Douze ans chez des familles à Carouge et Genève : ménage complet, repassage, vitres, sols.",
+  "texte_fiabilite": "Quand j'ai été opérée, j'ai prévenu mes clients deux semaines à l'avance et j'ai proposé une collègue de confiance pour me remplacer."
+ },
+ {
+  "id": "C22",
+  "fictif": true,
+  "prenom": "Sami",
+  "nom": "Haddad",
+  "email": "candidat22@exemple.invalid",
+  "telephone": "+41 79 000 00 22",
+  "adresse": "Rue Léopold-Robert 50, 2300 La Chaux-de-Fonds",
+  "npa": "2300",
+  "pays": "CH",
+  "permis": "B",
+  "casier_vierge": true,
+  "experience_tranche": "plus_2",
+  "heures_semaine": "20-30",
+  "transport": "voiture",
+  "zones": [
+   "Neuchâtel - La Chaux-de-Fonds",
+   "Neuchâtel - Ville et alentours"
+  ],
+  "disponibilites": {
+   "lun": [
+    "matin",
+    "apres-midi"
+   ],
+   "mar": [
+    "matin"
+   ],
+   "mer": [
+    "matin"
+   ],
+   "jeu": [
+    "matin",
+    "apres-midi"
+   ],
+   "ven": [
+    "matin"
+   ]
+  },
+  "horizon": "plus_1_an",
+  "reference": false,
+  "francais": "courant",
+  "smartphone": true,
+  "services": [
+   "regulier",
+   "a_fond"
+  ],
+  "texte_experience": "J'ai travaillé 3 ans dans une entreprise de nettoyage : bureaux, cabinets, sols, vitres et sanitaires.",
+  "texte_fiabilite": "J'ai appelé le client dès que j'ai su que j'étais malade et on a trouvé une autre date."
+ },
+ {
+  "id": "C23",
+  "fictif": true,
+  "prenom": "Giulia",
+  "nom": "Romano",
+  "email": "candidat23@exemple.invalid",
+  "telephone": "+41 79 000 00 23",
+  "adresse": "Rue de la République 4, 25300 Pontarlier",
+  "npa": "25300",
+  "pays": "FR",
+  "permis": "G",
+  "casier_vierge": true,
+  "experience_tranche": "plus_2",
+  "heures_semaine": "10-20",
+  "transport": "voiture",
+  "zones": [
+   "Vaud - Vallorbe",
+   "Neuchâtel - La Chaux-de-Fonds"
+  ],
+  "disponibilites": {
+   "lun": [
+    "matin",
+    "apres-midi"
+   ],
+   "mar": [
+    "matin",
+    "apres-midi"
+   ],
+   "mer": [
+    "matin",
+    "apres-midi"
+   ]
+  },
+  "horizon": "plus_1_an",
+  "reference": true,
+  "francais": "courant",
+  "smartphone": true,
+  "services": [
+   "regulier"
+  ],
+  "texte_experience": "4 ans de ménage chez des particuliers et dans un gîte à Pontarlier : chambres, draps, cuisine, sanitaires.",
+  "texte_fiabilite": "J'ai prévenu la propriétaire du gîte la veille et une amie m'a remplacée."
+ },
+ {
+  "id": "C24",
+  "fictif": true,
+  "prenom": "Olga",
+  "nom": "Ivanova",
+  "email": "candidat24@exemple.invalid",
+  "telephone": "+41 79 000 00 24",
+  "adresse": "Avenue de Cour 60, 1006 Lausanne",
+  "npa": "1006",
+  "pays": "CH",
+  "permis": "B",
+  "casier_vierge": true,
+  "experience_tranche": "plus_5",
+  "heures_semaine": "20-30",
+  "transport": "tp",
+  "zones": [
+   "Vaud - Lausanne et alentours"
+  ],
+  "disponibilites": {
+   "lun": [
+    "matin",
+    "apres-midi"
+   ],
+   "mar": [
+    "matin",
+    "apres-midi"
+   ],
+   "mer": [
+    "matin",
+    "apres-midi"
+   ]
+  },
+  "horizon": "plus_1_an",
+  "reference": true,
+  "francais": "courant",
+  "smartphone": true,
+  "services": [
+   "regulier"
+  ],
+  "texte_experience": "Je suis une personne sérieuse, organisée et très motivée. J'aime que tout soit propre et bien rangé, c'est ma passion depuis toujours et je donne toujours le meilleur de moi-même.",
+  "texte_fiabilite": "Je suis toujours ponctuelle et je respecte mes engagements, ça ne m'est jamais arrivé."
+ },
+ {
+  "id": "C25",
+  "fictif": true,
+  "prenom": "Adriana",
+  "nom": "Lopes",
+  "email": "candidat25@exemple.invalid",
+  "telephone": "+41 79 000 00 25",
+  "adresse": "Place de la Gare 2, 1040 Echallens",
+  "npa": "1040",
+  "pays": "CH",
+  "permis": "B",
+  "casier_vierge": true,
+  "experience_tranche": "plus_2",
+  "heures_semaine": "10-20",
+  "transport": "voiture",
+  "zones": [
+   "Vaud - Echallens",
+   "Vaud - Lausanne et alentours"
+  ],
+  "disponibilites": {
+   "lun": [
+    "matin",
+    "apres-midi"
+   ],
+   "mer": [
+    "matin",
+    "apres-midi"
+   ]
+  },
+  "horizon": "3_12_mois",
+  "reference": false,
+  "francais": "courant",
+  "smartphone": true,
+  "services": [
+   "regulier"
+  ],
+  "texte_experience": "J'ai travaillé 3 ans chez des particuliers à Echallens : cuisine, sols, salles de bain.",
+  "texte_fiabilite": "J'ai prévenu la cliente la veille par message."
+ },
+ {
+  "id": "C26",
+  "fictif": true,
+  "prenom": "Liridona",
+  "nom": "Gashi",
+  "email": "candidat26@exemple.invalid",
+  "telephone": "+41 79 000 00 26",
+  "adresse": "Rue de la Poste 10, 1920 Martigny",
+  "npa": "1920",
+  "pays": "CH",
+  "permis": "C",
+  "casier_vierge": true,
+  "experience_tranche": "plus_2",
+  "heures_semaine": "10-20",
+  "transport": "voiture",
+  "zones": [
+   "Valais - Martigny-Aigle-St Maurice"
+  ],
+  "disponibilites": {
+   "lun": [
+    "matin"
+   ],
+   "mar": [
+    "matin"
+   ],
+   "jeu": [
+    "matin"
+   ]
+  },
+  "horizon": "3_12_mois",
+  "reference": false,
+  "francais": "courant",
+  "smartphone": true,
+  "services": [
+   "regulier",
+   "repassage"
+  ],
+  "texte_experience": "J'ai fait 4 ans de ménage chez des familles à Martigny : sols, cuisine, salles de bain, repassage.",
+  "texte_fiabilite": "J'ai appelé la famille à l'avance et j'ai proposé de venir le vendredi à la place."
+ },
+ {
+  "id": "C27",
+  "fictif": true,
+  "prenom": "Thomas",
+  "nom": "Meier",
+  "email": "candidat27@exemple.invalid",
+  "telephone": "+41 79 000 00 27",
+  "adresse": "Avenue Général-Guisan 12, 3960 Sierre",
+  "npa": "3960",
+  "pays": "CH",
+  "permis": "suisse",
+  "casier_vierge": true,
+  "experience_tranche": "1_2",
+  "heures_semaine": "5-10",
+  "transport": "voiture",
+  "zones": [
+   "Valais - Sion et Sierre"
+  ],
+  "disponibilites": {
+   "sam": [
+    "matin",
+    "apres-midi"
+   ]
+  },
+  "horizon": "plus_1_an",
+  "reference": false,
+  "francais": "intermediaire",
+  "smartphone": true,
+  "services": [
+   "regulier",
+   "vitres"
+  ],
+  "texte_experience": "Je nettoie depuis un an et demi des appartements de vacances à Crans-Montana le samedi, entre deux locations : lits, cuisine, sanitaires.",
+  "texte_fiabilite": "Si je ne peux pas venir, j'écris au propriétaire le jeudi pour qu'il trouve quelqu'un."
+ },
+ {
+  "id": "C28",
+  "fictif": true,
+  "prenom": "Carla",
+  "nom": "Mendes",
+  "email": "candidat28@exemple.invalid",
+  "telephone": "+41 79 000 00 28",
+  "adresse": "Route Principale 1, 1983 Evolène",
+  "npa": "1983",
+  "pays": "CH",
+  "permis": "C",
+  "casier_vierge": true,
+  "experience_tranche": "plus_5",
+  "heures_semaine": "20-30",
+  "transport": "voiture",
+  "zones": [
+   "Valais - Evolène",
+   "Valais - Sion et Sierre"
+  ],
+  "disponibilites": {
+   "lun": [
+    "matin",
+    "apres-midi"
+   ],
+   "mar": [
+    "matin",
+    "apres-midi"
+   ],
+   "mer": [
+    "matin",
+    "apres-midi"
+   ],
+   "jeu": [
+    "matin"
+   ]
+  },
+  "horizon": "plus_1_an",
+  "reference": true,
+  "francais": "courant",
+  "smartphone": true,
+  "services": [
+   "regulier",
+   "a_fond"
+  ],
+  "texte_experience": "Depuis 2016 je fais le ménage de chalets et d'appartements à Evolène et aux Haudères : cuisine, sols, lits, vitres.",
+  "texte_fiabilite": "J'ai prévenu le propriétaire la veille à cause de la neige et je suis venue le lendemain matin."
+ },
+ {
+  "id": "C29",
+  "fictif": true,
+  "prenom": "Yusuf",
+  "nom": "Aydın",
+  "email": "candidat29@exemple.invalid",
+  "telephone": "+41 79 000 00 29",
+  "adresse": "Grande Rue 21, 74160 Saint-Julien-en-Genevois",
+  "npa": "74160",
+  "pays": "FR",
+  "permis": "B",
+  "casier_vierge": true,
+  "experience_tranche": "plus_2",
+  "heures_semaine": "20-30",
+  "transport": "voiture",
+  "zones": [
+   "Genève et alentours"
+  ],
+  "disponibilites": {
+   "lun": [
+    "matin",
+    "apres-midi"
+   ],
+   "mar": [
+    "matin",
+    "apres-midi"
+   ],
+   "mer": [
+    "matin",
+    "apres-midi"
+   ]
+  },
+  "horizon": "plus_1_an",
+  "reference": true,
+  "francais": "courant",
+  "smartphone": true,
+  "services": [
+   "regulier",
+   "fin_de_bail"
+  ],
+  "texte_experience": "Trois ans dans une entreprise de nettoyage à Genève : fins de bail, sols, vitres, cuisines.",
+  "texte_fiabilite": "J'ai prévenu le chef d'équipe la veille et j'ai fait les heures le samedi."
+ },
+ {
+  "id": "C30",
+  "fictif": true,
+  "prenom": "Beatriz",
+  "nom": "Santos",
+  "email": "candidat30@exemple.invalid",
+  "telephone": "+41 79 000 00 30",
+  "adresse": "Rue de Lausanne 25, 1030 Bussigny",
+  "npa": "1030",
+  "pays": "CH",
+  "permis": "B",
+  "casier_vierge": true,
+  "experience_tranche": "moins_1",
+  "heures_semaine": "20-30",
+  "transport": "tp",
+  "zones": [
+   "Vaud - Lausanne et alentours"
+  ],
+  "disponibilites": {
+   "lun": [
+    "matin",
+    "apres-midi"
+   ],
+   "mar": [
+    "matin",
+    "apres-midi"
+   ],
+   "mer": [
+    "matin",
+    "apres-midi"
+   ],
+   "jeu": [
+    "matin",
+    "apres-midi"
+   ]
+  },
+  "horizon": "plus_1_an",
+  "reference": true,
+  "francais": "courant",
+  "smartphone": true,
+  "services": [
+   "regulier",
+   "vitres"
+  ],
+  "texte_experience": "8 mois dans une entreprise de nettoyage : bureaux, sols, vitres, sanitaires. Avant je gardais des enfants dans une famille.",
+  "texte_fiabilite": "J'ai prévenu mon responsable la veille et j'ai proposé de rattraper le samedi."
+ }
+]

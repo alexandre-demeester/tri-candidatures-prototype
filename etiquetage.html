@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Tri humain à l'aveugle</title>
+<style>
+  :root { --fond:#f6f5f1; --carte:#fff; --texte:#1d2226; --doux:#5d6770; --trait:#dcdcd4; --accent:#1b3a5c;
+          --prio:#2e7d4f; --prep:#9a6b00; --revoir:#7a4fa3; --refus:#b23a3a; }
+  * { box-sizing:border-box }
+  body { margin:0; font:16px/1.5 system-ui, -apple-system, sans-serif; background:var(--fond); color:var(--texte) }
+  main { max-width:760px; margin:0 auto; padding:24px 16px 80px }
+  h1 { font-size:22px; margin:0 0 4px } .doux { color:var(--doux) }
+  .consigne { background:var(--carte); border:1px solid var(--trait); border-radius:10px; padding:14px 16px; margin:16px 0; font-size:15px }
+  .consigne dl { display:grid; grid-template-columns:auto 1fr; gap:4px 12px; margin:8px 0 0 }
+  .consigne dt { font-weight:600 }
+  .barre { height:6px; background:var(--trait); border-radius:3px; overflow:hidden; margin:12px 0 }
+  .barre > div { height:100%; background:var(--accent); transition:width .2s }
+  .carte { background:var(--carte); border:1px solid var(--trait); border-radius:10px; padding:16px }
+  .carte h2 { font-size:18px; margin:0 0 10px }
+  table { width:100%; border-collapse:collapse; font-size:15px }
+  td { padding:5px 0; border-bottom:1px solid #eeeee8; vertical-align:top }
+  td:first-child { color:var(--doux); width:42%; padding-right:12px }
+  blockquote { margin:6px 0 12px; padding:8px 12px; background:#f1f0ea; border-left:3px solid var(--trait); border-radius:4px }
+  .q { font-weight:600; margin-top:14px }
+  .choix { display:grid; grid-template-columns:repeat(2, 1fr); gap:8px; margin-top:16px }
+  .choix button { padding:12px 10px; border:2px solid var(--trait); background:#fff; border-radius:8px; font:inherit; cursor:pointer; text-align:left }
+  .choix button kbd { float:right; color:var(--doux); font-size:12px }
+  .choix button[data-f=prioritaire].on { border-color:var(--prio); background:#e9f5ee }
+  .choix button[data-f=a_preparer].on { border-color:var(--prep); background:#fbf3e0 }
+  .choix button[data-f=a_revoir].on { border-color:var(--revoir); background:#f2ecf8 }
+  .choix button[data-f=refus].on { border-color:var(--refus); background:#fbeaea }
+  textarea { width:100%; margin-top:10px; font:inherit; padding:8px; border:1px solid var(--trait); border-radius:6px; min-height:56px }
+  nav { display:flex; justify-content:space-between; margin-top:14px; gap:8px; flex-wrap:wrap }
+  nav button, .fin button { padding:9px 14px; border-radius:8px; border:1px solid var(--accent); background:#fff; color:var(--accent); font:inherit; cursor:pointer }
+  nav button.plein, .fin button.plein { background:var(--accent); color:#fff }
+  .fin { margin-top:18px; display:flex; gap:8px; flex-wrap:wrap; align-items:center }
+  @media (max-width:520px) { .choix { grid-template-columns:1fr } td:first-child { width:46% } }
+</style>
+</head>
+<body>
+<main>
+  <h1>Tri humain à l'aveugle</h1>
+  <p class="doux">30 candidatures fictives. Vous classez chacune comme un·e recruteur·se qui lit le formulaire, <b>sans voir ce que propose l'outil</b>. Le nom et les coordonnées sont masqués, comme pour l'outil.</p>
+
+  <div class="consigne">
+    Dans quelle file mettriez-vous cette candidature ?
+    <dl>
+      <dt>1 · Appel prioritaire</dt><dd>Je l'appelle en premier, rien ne m'inquiète.</dd>
+      <dt>2 · Appel à préparer</dt><dd>Je l'appelle, mais j'ai des points précis à vérifier.</dd>
+      <dt>3 · À relire</dt><dd>Quelque chose ne colle pas dans les données : je relis avant de décider d'appeler.</dd>
+      <dt>4 · Refus</dt><dd>Un critère éliminatoire publié n'est pas rempli (permis, casier, aucune expérience).</dd>
+    </dl>
+    <p class="doux" style="margin:8px 0 0">Raccourcis : touches 1 à 4, puis Entrée pour passer à la suivante. La progression est gardée dans ce navigateur.</p>
+  </div>
+
+  <div class="barre"><div id="prog"></div></div>
+  <p class="doux" id="compteur"></p>
+  <div class="carte" id="carte"></div>
+
+  <div class="fin">
+    <button class="plein" id="exporter">Télécharger mes étiquettes (alexandre.json)</button>
+    <button id="copier">Copier le JSON</button>
+    <span class="doux" id="etat"></span>
+  </div>
+</main>
+
+<script src="data/candidats.js"></script>
+<script>
+(function () {
+  var CLE = "tri-aveugle-v1";
+  var C = window.CANDIDATS.slice();
+  // Ordre mélangé mais fixe (graine), pour ne pas suivre l'ordre de fabrication du jeu
+  var g = 20261108; function rnd() { g = (g * 1103515245 + 12345) % 2147483648; return g / 2147483648; }
+  for (var i = C.length - 1; i > 0; i--) { var j = Math.floor(rnd() * (i + 1)); var t = C[i]; C[i] = C[j]; C[j] = t; }
+
+  var etat = { pos: 0, etiquettes: {}, notes: {} };
+  try { var s = JSON.parse(localStorage.getItem(CLE)); if (s && s.etiquettes) etat = s; } catch (e) {}
+  function sauver() { try { localStorage.setItem(CLE, JSON.stringify(etat)); } catch (e) {} }
+
+  var LIB = { prioritaire: "Appel prioritaire", a_preparer: "Appel à préparer", a_revoir: "À relire", refus: "Refus" };
+  var TR = { jamais: "Je n'ai jamais fait de ménage", moins_1: "Moins de 1 an", "1_2": "1 à 2 ans", plus_2: "Plus de 2 ans", plus_5: "Plus de 5 ans" };
+  var PE = { suisse: "Nationalité suisse", B: "Permis B", C: "Permis C", G: "Permis G", aucun: "Pas autorisé·e à travailler en Suisse" };
+  var TP = { tp: "Transports publics", voiture: "Voiture", scooter: "Scooter/moto" };
+  var HO = { moins_3_mois: "Moins de 3 mois", "3_12_mois": "3 à 12 mois", plus_1_an: "Plus d'un an" };
+  var JO = { lun: "lun", mar: "mar", mer: "mer", jeu: "jeu", ven: "ven", sam: "sam" };
+  function esc(s) { return String(s == null ? "" : s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
+  function localite(c) { return c.adresse.split(",").pop().trim(); }
+  function dispo(d) {
+    var out = []; for (var k in d) if (d[k].length) out.push(JO[k] + " " + d[k].map(function (x) { return x === "matin" ? "matin" : "après-midi"; }).join(" + "));
+    return out.length ? out.join(" · ") : "aucune";
+  }
+
+  function rendre() {
+    var c = C[etat.pos], f = etat.etiquettes[c.id];
+    var faits = Object.keys(etat.etiquettes).length;
+    document.getElementById("prog").style.width = (faits / C.length * 100) + "%";
+    document.getElementById("compteur").textContent = "Candidature " + (etat.pos + 1) + " sur " + C.length + " · " + faits + " classée(s)";
+    document.getElementById("carte").innerHTML =
+      "<h2>Candidature " + esc(c.id) + "</h2><table>" +
+      "<tr><td>Localité</td><td>" + esc(localite(c)) + (c.pays === "FR" ? " (France)" : "") + "</td></tr>" +
+      "<tr><td>Permis de travail</td><td>" + esc(PE[c.permis]) + "</td></tr>" +
+      "<tr><td>Casier judiciaire vierge</td><td>" + (c.casier_vierge ? "Oui" : "Non") + "</td></tr>" +
+      "<tr><td>Expérience dans le ménage</td><td>" + esc(TR[c.experience_tranche]) + "</td></tr>" +
+      "<tr><td>Heures souhaitées par semaine</td><td>" + esc(c.heures_semaine || "non renseigné") + "</td></tr>" +
+      "<tr><td>Disponibilités</td><td>" + esc(dispo(c.disponibilites)) + "</td></tr>" +
+      "<tr><td>Déplacements</td><td>" + esc(TP[c.transport]) + "</td></tr>" +
+      "<tr><td>Zones souhaitées</td><td>" + esc(c.zones.join(" · ")) + "</td></tr>" +
+      "<tr><td>Engagement prévu</td><td>" + esc(HO[c.horizon]) + "</td></tr>" +
+      "<tr><td>Peut fournir une référence</td><td>" + (c.reference ? "Oui" : "Non") + "</td></tr>" +
+      "<tr><td>Niveau de français déclaré</td><td>" + esc(c.francais) + "</td></tr>" +
+      "<tr><td>À l'aise avec les applications</td><td>" + (c.smartphone ? "Oui" : "Non") + "</td></tr>" +
+      "</table>" +
+      "<div class='q'>Racontez votre dernier emploi de ménage</div><blockquote>" + esc(c.texte_experience) + "</blockquote>" +
+      "<div class='q'>Une fois où vous n'avez pas pu venir : qu'avez-vous fait ?</div><blockquote>" + esc(c.texte_fiabilite) + "</blockquote>" +
+      "<div class='choix'>" + ["prioritaire", "a_preparer", "a_revoir", "refus"].map(function (k, i) {
+        return "<button data-f='" + k + "' class='" + (f === k ? "on" : "") + "'>" + LIB[k] + "<kbd>" + (i + 1) + "</kbd></button>";
+      }).join("") + "</div>" +
+      "<textarea id='note' placeholder='Note facultative : pourquoi ce choix ?'>" + esc(etat.notes[c.id] || "") + "</textarea>" +
+      "<nav><button id='prec'>← Précédente</button><button class='plein' id='suiv'>Suivante →</button></nav>";
+    Array.prototype.forEach.call(document.querySelectorAll(".choix button"), function (b) {
+      b.onclick = function () { choisir(b.getAttribute("data-f")); };
+    });
+    document.getElementById("note").oninput = function (e) { etat.notes[c.id] = e.target.value; sauver(); };
+    document.getElementById("prec").onclick = function () { aller(-1); };
+    document.getElementById("suiv").onclick = function () { aller(1); };
+  }
+  function choisir(f) { etat.etiquettes[C[etat.pos].id] = f; sauver(); rendre(); }
+  function aller(d) { etat.pos = Math.max(0, Math.min(C.length - 1, etat.pos + d)); sauver(); rendre(); window.scrollTo(0, 0); }
+  document.addEventListener("keydown", function (e) {
+    if (e.target.tagName === "TEXTAREA") return;
+    var k = { "1": "prioritaire", "2": "a_preparer", "3": "a_revoir", "4": "refus" }[e.key];
+    if (k) choisir(k); else if (e.key === "Enter" || e.key === "ArrowRight") aller(1); else if (e.key === "ArrowLeft") aller(-1);
+  });
+
+  function json() {
+    return JSON.stringify({ etiqueteur: "Alexandre Demeester", date: new Date().toISOString().slice(0, 10), aveugle: true,
+      etiquettes: etat.etiquettes, notes: etat.notes }, null, 1);
+  }
+  document.getElementById("exporter").onclick = function () {
+    var n = Object.keys(etat.etiquettes).length;
+    if (n < C.length) { document.getElementById("etat").textContent = "Encore " + (C.length - n) + " candidature(s) à classer."; return; }
+    var a = document.createElement("a");
+    a.href = URL.createObjectURL(new Blob([json()], { type: "application/json" }));
+    a.download = "alexandre.json"; a.click();
+    document.getElementById("etat").textContent = "Fichier téléchargé.";
+  };
+  document.getElementById("copier").onclick = function () {
+    navigator.clipboard.writeText(json()).then(function () { document.getElementById("etat").textContent = "JSON copié."; });
+  };
+  rendre();
+})();
+</script>
+</body>
+</html>

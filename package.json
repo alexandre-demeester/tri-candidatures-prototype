@@ -1,0 +1,11 @@
+{
+  "name": "menagesimple-tri-candidatures",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Prototype : tri des candidatures d'intervenant·e·s de ménage (données fictives). Aucune dépendance.",
+  "scripts": {
+    "test": "node --test tests/",
+    "accord": "node eval/accord.mjs labels/alexandre.json"
+  }
+}
