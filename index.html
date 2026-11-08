@@ -5,60 +5,72 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex">
 <title>Tri des candidatures · prototype MénageSimple</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-  :root { --fond:#f6f5f1; --carte:#fff; --texte:#1d2226; --doux:#5d6770; --trait:#dcdcd4; --accent:#1b3a5c;
-          --prio:#2e7d4f; --prep:#9a6b00; --revoir:#7a4fa3; --refus:#b23a3a; }
+  /* Inspiré de la palette et de la typographie publiques de menagesimple.com (Figtree, bleus #1B3A5C / #195B84 / #0E9EDF).
+     Ni logo, ni photo, ni texte repris : prototype non affilié. */
+  :root { --fond:#FAFAFA; --fond2:#F2F2F2; --carte:#fff; --texte:#3C3C3C; --doux:#5F6B80; --trait:#DFE6EE; --bord:#B9C6D8;
+          --accent:#1B3A5C; --accent2:#195B84; --vif:#0E9EDF; --teinte:#195B8414;
+          --prio:#1F7A52; --prep:#A9661A; --revoir:#6B4FA3; --refus:#B83A2E; }
   * { box-sizing:border-box }
-  body { margin:0; font:16px/1.55 system-ui, -apple-system, sans-serif; background:var(--fond); color:var(--texte) }
+  body { margin:0; font:16px/1.6 "Figtree", system-ui, -apple-system, sans-serif; background:var(--fond); color:var(--texte) }
   header, section, footer { max-width:1040px; margin:0 auto; padding:0 16px }
-  header { padding-top:36px }
-  .sur { font-size:13px; letter-spacing:.04em; text-transform:uppercase; color:var(--doux) }
-  h1 { font-size:30px; line-height:1.2; margin:6px 0 10px }
-  h2 { font-size:21px; margin:44px 0 6px }
-  h3 { font-size:16px; margin:0 0 6px }
+  header { padding-top:28px }
+  .sur { display:inline-block; font-size:13px; font-weight:600; color:var(--accent2); background:var(--teinte); border:1px solid #195B8433; border-radius:50px; padding:4px 12px }
+  h1 { font-size:34px; line-height:1.15; font-weight:700; color:var(--accent); margin:14px 0 12px; letter-spacing:-.01em }
+  h2 { font-size:23px; font-weight:700; color:var(--accent); margin:52px 0 6px }
+  h3 { font-size:16px; font-weight:600; color:var(--accent); margin:0 0 6px }
+  b { font-weight:600 }
+  code { font-size:13px; background:var(--fond2); padding:1px 6px; border-radius:6px }
   .doux { color:var(--doux) } .petit { font-size:14px }
-  .chiffres { display:grid; grid-template-columns:repeat(3, 1fr); gap:12px; margin:22px 0 4px }
-  .chiffre { background:var(--carte); border:1px solid var(--trait); border-radius:10px; padding:14px }
-  .chiffre b { display:block; font-size:24px; color:var(--accent) }
-  .onglets { display:flex; gap:6px; flex-wrap:wrap; margin:14px 0 }
-  .onglets button { border:1px solid var(--trait); background:#fff; border-radius:999px; padding:6px 12px; font:inherit; font-size:14px; cursor:pointer }
+  .chiffres { display:grid; grid-template-columns:repeat(3, 1fr); gap:14px; margin:24px 0 4px }
+  .chiffre { background:var(--carte); border:1px solid var(--trait); border-radius:20px; padding:16px 18px; font-size:15px }
+  .chiffre b { display:block; font-size:28px; font-weight:700; color:var(--accent2); line-height:1.2 }
+  .onglets { display:flex; gap:8px; flex-wrap:wrap; margin:16px 0 }
+  .onglets button { border:1px solid var(--bord); background:#fff; color:var(--accent); border-radius:50px; padding:6px 14px; font:inherit; font-size:14px; font-weight:500; cursor:pointer }
+  .onglets button:hover { border-color:var(--accent2) }
   .onglets button.on { background:var(--accent); color:#fff; border-color:var(--accent) }
   .grille { display:grid; grid-template-columns:minmax(0, 1fr) minmax(0, 1.25fr); gap:16px; align-items:start }
   .liste { display:flex; flex-direction:column; gap:8px }
-  .ligne { background:var(--carte); border:1px solid var(--trait); border-left-width:5px; border-radius:8px; padding:10px 12px; cursor:pointer; text-align:left; font:inherit; color:inherit; width:100% }
-  .ligne:hover, .ligne.on { border-color:var(--accent) }
+  .ligne { background:var(--carte); border:1px solid var(--trait); border-left-width:5px; border-radius:10px; padding:10px 14px; cursor:pointer; text-align:left; font:inherit; color:inherit; width:100% }
+  .ligne:hover { border-color:var(--bord) }
+  .ligne.on { border-color:var(--accent2); box-shadow:0 0 0 2px #195B8426 }
   .ligne .haut { display:flex; justify-content:space-between; gap:8px }
-  .ligne .score { font-variant-numeric:tabular-nums; color:var(--doux) }
+  .ligne .score { font-variant-numeric:tabular-nums; color:var(--doux); font-weight:600 }
   .f-prioritaire { border-left-color:var(--prio) } .f-a_preparer { border-left-color:var(--prep) }
   .f-a_revoir { border-left-color:var(--revoir) } .f-refus { border-left-color:var(--refus) }
-  .badge { display:inline-block; font-size:12px; padding:1px 8px; border-radius:999px; color:#fff; white-space:nowrap }
+  .badge { display:inline-block; font-size:12px; font-weight:600; padding:2px 10px; border-radius:50px; color:#fff; white-space:nowrap }
   .b-prioritaire { background:var(--prio) } .b-a_preparer { background:var(--prep) } .b-a_revoir { background:var(--revoir) } .b-refus { background:var(--refus) }
-  .puce { display:inline-block; font-size:12px; padding:1px 7px; border-radius:4px; background:#efeee8; color:#3c444b; margin:4px 4px 0 0 }
-  .panneau { background:var(--carte); border:1px solid var(--trait); border-radius:10px; padding:16px; position:sticky; top:12px }
+  .puce { display:inline-block; font-size:12px; padding:1px 8px; border-radius:50px; background:var(--fond2); color:#4a5466; margin:4px 4px 0 0 }
+  .panneau { background:var(--carte); border:1px solid var(--trait); border-radius:20px; padding:18px 20px; position:sticky; top:12px }
   .bareme { width:100%; border-collapse:collapse; font-size:14px; margin:8px 0 }
-  .bareme td { border-bottom:1px solid #eeeee8; padding:6px 4px; vertical-align:top }
-  .bareme td.pts { white-space:nowrap; font-variant-numeric:tabular-nums; width:52px; text-align:right; font-weight:600 }
-  .alerte { background:#fbf3e0; border-radius:6px; padding:6px 10px; margin:6px 0; font-size:14px }
-  .alerte.revoir { background:#f2ecf8 } .alerte.refus { background:#fbeaea }
-  ol.questions { padding-left:20px; margin:6px 0 } ol.questions li { margin:4px 0 }
-  .carte { background:var(--carte); border:1px solid var(--trait); border-radius:10px; padding:16px }
+  .bareme td { border-bottom:1px solid var(--trait); padding:7px 4px; vertical-align:top }
+  .bareme td.pts { white-space:nowrap; font-variant-numeric:tabular-nums; width:52px; text-align:right; font-weight:700; color:var(--accent) }
+  .alerte { background:#FBF1E4; border-radius:10px; padding:7px 12px; margin:6px 0; font-size:14px }
+  .alerte.revoir { background:#F1ECF8 } .alerte.refus { background:#FBEAE8 }
+  ol.questions { padding-left:20px; margin:6px 0 } ol.questions li { margin:5px 0 }
+  .carte { background:var(--carte); border:1px solid var(--trait); border-radius:20px; padding:18px 20px }
   .deux { display:grid; grid-template-columns:1fr 1fr; gap:16px }
-  form label { display:block; font-size:13px; color:var(--doux); margin-top:8px }
-  form select, form textarea, form input { width:100%; font:inherit; font-size:14px; padding:6px 8px; border:1px solid var(--trait); border-radius:6px; background:#fff }
-  form textarea { min-height:70px }
+  form label { display:block; font-size:13px; font-weight:500; color:var(--doux); margin-top:10px }
+  form select, form textarea, form input { width:100%; font:inherit; font-size:14px; padding:7px 10px; border:1px solid var(--bord); border-radius:10px; background:#fff; color:var(--texte) }
+  form select:focus, form textarea:focus, form input:focus { outline:2px solid #0E9EDF55; border-color:var(--vif) }
+  form textarea { min-height:76px }
   .jours { display:grid; grid-template-columns:repeat(6, 1fr); gap:4px; font-size:13px }
-  .jours label { margin:0; color:var(--texte) } .jours input { width:auto }
-  .matrice { border-collapse:collapse; font-size:14px; font-variant-numeric:tabular-nums }
+  .jours label { margin:0; color:var(--texte) } .jours input { width:auto; accent-color:var(--accent2) }
+  .matrice { border-collapse:collapse; font-size:14px; font-variant-numeric:tabular-nums; margin-top:6px }
   .matrice th, .matrice td { border:1px solid var(--trait); padding:6px 10px; text-align:center }
-  .matrice td.diag { background:#e9f5ee; font-weight:600 }
-  ul.serre li { margin:5px 0 }
-  footer { padding:40px 16px 60px; font-size:14px; color:var(--doux) }
-  @media (max-width:820px) { .grille, .deux { grid-template-columns:1fr } .panneau { position:static } .chiffres { grid-template-columns:1fr } h1 { font-size:25px } }
+  .matrice th { font-weight:600; color:var(--accent); background:var(--fond) }
+  .matrice td.diag { background:#E6F2EC; font-weight:700 }
+  ul.serre { padding-left:20px } ul.serre li { margin:6px 0 }
+  footer { margin-top:48px; padding:28px 16px 60px; font-size:14px; color:var(--doux); border-top:1px solid var(--trait) }
+  @media (max-width:820px) { .grille, .deux { grid-template-columns:1fr } .panneau { position:static } .chiffres { grid-template-columns:1fr } h1 { font-size:27px } }
 </style>
 </head>
 <body>
 <header>
-  <div class="sur">Prototype · deuxième tour Stonks Holding · données 100 % fictives</div>
+  <div class="sur">Prototype candidat · non affilié à MénageSimple · données 100 % fictives</div>
   <h1>Moins d'appels pour dire non.<br>Tri des candidatures d'intervenant·e·s pour MénageSimple</h1>
   <p>MénageSimple retient <b>moins de 5 % des candidatures</b>, après « une série d'entretiens ». Son formulaire public ne filtre que le permis et le casier : tout le reste (l'expérience réelle, la fiabilité, les créneaux, la zone par rapport au moyen de transport) se découvre au téléphone. Ce prototype trie les candidatures <b>avant</b> l'appel, explique chaque décision avec la phrase du candidat qui la justifie, et prépare les questions à poser.</p>
   <div class="chiffres">
