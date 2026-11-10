@@ -141,7 +141,7 @@ const ANALYSE = [
   { titre: "L'outil plus prudent que l'humain", ids: ["C15", "C23"],
     texte: "C15 veut au moins 30 h par semaine pour quatre matinées cochées. C23 habite Pontarlier et vise La Chaux-de-Fonds, à 43 km à vol d'oiseau : un trajet ordinaire pour un frontalier en voiture. Le seuil de 35 km est à revoir avec des temps de trajet réels." },
   { titre: "Ce que l'outil a vu et pas l'humain", ids: ["C29"],
-    texte: "Permis B, qui suppose d'habiter en Suisse, avec une adresse à Saint-Julien-en-Genevois, en France. Le recruteur l'aurait appelée en premier ; l'outil l'envoie en relecture. Le recruteur avait pourtant repéré l'incohérence inverse sur C08 (permis G, adresse à Genève)." },
+    texte: "Permis B, qui suppose d'habiter en Suisse, avec une adresse à Saint-Julien-en-Genevois, en France. Le recruteur aurait appelé ce dossier en premier ; l'outil l'envoie en relecture. Le recruteur avait pourtant repéré l'incohérence inverse sur C08 (permis G, adresse à Genève)." },
   { titre: "Plus prudent que l'outil, raison non notée", ids: ["C22"],
     texte: "Trois ans en entreprise de nettoyage, voiture, pas de référence." },
 ];
