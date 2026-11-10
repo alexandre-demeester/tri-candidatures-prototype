@@ -9,6 +9,7 @@ const fichier = process.argv[2] || "labels/alexandre.json";
 const C = JSON.parse(fs.readFileSync(new URL("data/candidats.json", racine), "utf8"));
 const L = JSON.parse(fs.readFileSync(new URL(fichier, racine), "utf8"));
 const ORDRE = ["prioritaire", "a_preparer", "a_revoir", "refus"];
+const pre = L.prerempli || [];
 
 const lignes = C.map((c) => {
   const r = trier(c);
@@ -36,11 +37,18 @@ const resultats = {
   n, accords, taux: Math.round(po * 1000) / 10, kappa: Math.round(kappa * 100) / 100,
   matrice, graves: graves.map((g) => g.id),
   desaccords: lignes.filter((l) => l.outil !== l.humain),
+  // Critères éliminatoires publiés, rangés d'office par la page d'étiquetage : mis à part pour ne pas gonfler l'accord
+  prerempli: pre,
+  accord_jugees: lignes.filter((l) => !pre.includes(l.id) && l.outil === l.humain).length,
 };
 fs.writeFileSync(new URL(process.argv[3] || "data/resultats.json", racine), JSON.stringify(resultats, null, 1));
 
 console.log(`Règles v${VERSION} · ${n} candidatures · étiquetage : ${L.etiqueteur} (${L.date})`);
 console.log(`Accord : ${accords}/${n} (${resultats.taux} %) · kappa de Cohen : ${resultats.kappa}`);
+if (pre.length) {
+  const jugees = lignes.filter((l) => !pre.includes(l.id));
+  console.log(`Dont ${pre.length} rangées d'office en refus (critère publié : ${pre.join(", ")}). Accord sur les ${jugees.length} jugées à la main : ${resultats.accord_jugees}/${jugees.length}`);
+}
 console.log(`Erreurs graves : ${graves.length ? graves.map((g) => g.id).join(", ") : "aucune"}`);
 console.log("\nMatrice (lignes = humain, colonnes = outil)");
 console.log("".padEnd(14) + ORDRE.map((o) => o.padStart(12)).join(""));

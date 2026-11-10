@@ -66,6 +66,7 @@
       <dt>4 · Refus</dt><dd>Un critère éliminatoire publié n'est pas rempli (permis, casier, aucune expérience).</dd>
     </dl>
     <p class="doux" style="margin:8px 0 0">Raccourcis : touches 1 à 4, puis Entrée pour passer à la suivante. La progression est gardée dans ce navigateur.</p>
+    <p class="doux" style="margin:6px 0 0">Les candidatures qui ne remplissent pas un critère éliminatoire publié sont déjà rangées en refus (cases marquées d'un point). Vous pouvez changer ce choix.</p>
   </div>
 
   <div class="barre"><div id="prog"></div></div>
@@ -97,6 +98,21 @@
   try { var s = JSON.parse(localStorage.getItem(CLE)); if (s && s.etiquettes) etat = s; } catch (e) {}
   function sauver() { try { localStorage.setItem(CLE, JSON.stringify(etat)); } catch (e) {} }
 
+  // Critères éliminatoires publiés par MénageSimple : rangés d'office en refus, sans jugement humain.
+  // Marqués « pré-remplis » pour que la mesure d'accord puisse les mettre à part. Un choix déjà fait n'est jamais écrasé.
+  if (!etat.prerempli) etat.prerempli = [];
+  function eliminatoire(c) {
+    var m = [];
+    if (c.permis === "aucun") m.push("pas de permis de travail");
+    if (c.casier_vierge === false) m.push("casier non vierge");
+    if (c.experience_tranche === "jamais") m.push("aucune expérience");
+    return m;
+  }
+  C.forEach(function (c) {
+    if (eliminatoire(c).length && !etat.etiquettes[c.id]) { etat.etiquettes[c.id] = "refus"; etat.prerempli.push(c.id); }
+  });
+  sauver();
+
   var LIB = { prioritaire: "Appel prioritaire", a_preparer: "Appel à préparer", a_revoir: "À relire", refus: "Refus" };
   var TR = { jamais: "Je n'ai jamais fait de ménage", moins_1: "Moins de 1 an", "1_2": "1 à 2 ans", plus_2: "Plus de 2 ans", plus_5: "Plus de 5 ans" };
   var PE = { suisse: "Nationalité suisse", B: "Permis B", C: "Permis C", G: "Permis G", aucun: "Pas autorisé·e à travailler en Suisse" };
@@ -119,7 +135,8 @@
     }).join("") + "<span>À classer<b>" + reste + "</b></span>";
     document.getElementById("grille").innerHTML = C.map(function (c, i) {
       var f = etat.etiquettes[c.id] || "";
-      return "<button data-i='" + i + "' class='" + f + (i === etat.pos ? " ici" : "") + "' title='" + c.id + (f ? " · " + LIB[f] : " · à classer") + "'>" + (i + 1) + "</button>";
+      var pre = etat.prerempli.indexOf(c.id) >= 0;
+      return "<button data-i='" + i + "' class='" + f + (i === etat.pos ? " ici" : "") + "' title='" + c.id + (f ? " · " + LIB[f] : " · à classer") + (pre ? " (pré-rempli)" : "") + "'>" + (i + 1) + (pre ? " •" : "") + "</button>";
     }).join("");
     Array.prototype.forEach.call(document.querySelectorAll(".grille button"), function (b) {
       b.onclick = function () { etat.pos = +b.getAttribute("data-i"); sauver(); rendre(); };
@@ -137,7 +154,9 @@
     document.getElementById("prog").style.width = (faits / C.length * 100) + "%";
     document.getElementById("compteur").textContent = "Candidature " + (etat.pos + 1) + " sur " + C.length + " · " + faits + " classée(s)";
     document.getElementById("carte").innerHTML =
-      "<h2>Candidature " + esc(c.id) + "</h2><table>" +
+      "<h2>Candidature " + esc(c.id) + "</h2>" +
+      (etat.prerempli.indexOf(c.id) >= 0 ? "<p class='doux' style='margin:-4px 0 10px'>Pré-rangée en refus : " + esc(eliminatoire(c).join(", ")) + ". Choisissez une autre file si vous n'êtes pas d'accord.</p>" : "") +
+      "<table>" +
       "<tr><td>Localité</td><td>" + esc(localite(c)) + (c.pays === "FR" ? " (France)" : "") + "</td></tr>" +
       "<tr><td>Permis de travail</td><td>" + esc(PE[c.permis]) + "</td></tr>" +
       "<tr><td>Casier judiciaire vierge</td><td>" + (c.casier_vierge ? "Oui" : "Non") + "</td></tr>" +
@@ -165,7 +184,11 @@
     document.getElementById("prec").onclick = function () { aller(-1); };
     document.getElementById("suiv").onclick = function () { aller(1); };
   }
-  function choisir(f) { etat.etiquettes[C[etat.pos].id] = f; sauver(); rendre(); }
+  function choisir(f) {
+    var id = C[etat.pos].id; etat.etiquettes[id] = f;
+    etat.prerempli = etat.prerempli.filter(function (x) { return x !== id; }); // choix explicite : redevient un jugement humain
+    sauver(); rendre();
+  }
   function aller(d) { etat.pos = Math.max(0, Math.min(C.length - 1, etat.pos + d)); sauver(); rendre(); window.scrollTo(0, 0); }
   document.addEventListener("keydown", function (e) {
     if (e.target.tagName === "TEXTAREA") return;
@@ -175,7 +198,7 @@
 
   function json() {
     return JSON.stringify({ etiqueteur: "Alexandre Demeester", date: new Date().toISOString().slice(0, 10), aveugle: true,
-      etiquettes: etat.etiquettes, notes: etat.notes }, null, 1);
+      etiquettes: etat.etiquettes, notes: etat.notes, prerempli: etat.prerempli }, null, 1);
   }
   document.getElementById("exporter").onclick = function () {
     var n = Object.keys(etat.etiquettes).length;
