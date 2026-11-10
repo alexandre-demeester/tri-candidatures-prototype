@@ -3,6 +3,8 @@
 Prototype réalisé pour le deuxième tour du poste *Digital Projects & AI Assistant* (Stonks Holding AG).
 **Non affilié à MénageSimple. Toutes les candidatures sont fictives.** Informations publiques consultées le 8 novembre 2026.
 
+**Démo en ligne : https://tri-candidatures-prototype.vercel.app** (page d'étiquetage à l'aveugle : `/etiquetage.html`)
+
 ## Le problème
 
 MénageSimple retient moins de 5 % des candidatures, après « une série d'entretiens ». Son formulaire public
