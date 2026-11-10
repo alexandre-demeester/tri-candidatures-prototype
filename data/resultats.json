@@ -1,0 +1,165 @@
+{
+ "version_regles": "1.1.0",
+ "date": "2026-11-10",
+ "etiqueteur": "Alexandre Demeester",
+ "date_etiquetage": "2026-11-10",
+ "n": 30,
+ "accords": 17,
+ "taux": 56.7,
+ "kappa": 0.37,
+ "matrice": {
+  "prioritaire": {
+   "prioritaire": 5,
+   "a_preparer": 2,
+   "a_revoir": 1,
+   "refus": 0
+  },
+  "a_preparer": {
+   "prioritaire": 5,
+   "a_preparer": 7,
+   "a_revoir": 0,
+   "refus": 0
+  },
+  "a_revoir": {
+   "prioritaire": 0,
+   "a_preparer": 2,
+   "a_revoir": 2,
+   "refus": 0
+  },
+  "refus": {
+   "prioritaire": 0,
+   "a_preparer": 3,
+   "a_revoir": 0,
+   "refus": 3
+  }
+ },
+ "graves": [],
+ "desaccords": [
+  {
+   "id": "C01",
+   "outil": "prioritaire",
+   "humain": "a_preparer",
+   "score": 10,
+   "alertes": [],
+   "note": ""
+  },
+  {
+   "id": "C03",
+   "outil": "prioritaire",
+   "humain": "a_preparer",
+   "score": 8,
+   "alertes": [],
+   "note": ""
+  },
+  {
+   "id": "C05",
+   "outil": "a_preparer",
+   "humain": "refus",
+   "score": 0,
+   "alertes": [
+    "EXPERIENCE_COURTE",
+    "TEXTE_VAGUE",
+    "FIABILITE_NON_DECRITE"
+   ],
+   "note": ""
+  },
+  {
+   "id": "C09",
+   "outil": "prioritaire",
+   "humain": "a_preparer",
+   "score": 9,
+   "alertes": [],
+   "note": ""
+  },
+  {
+   "id": "C15",
+   "outil": "a_preparer",
+   "humain": "prioritaire",
+   "score": 9,
+   "alertes": [
+    "HEURES_SUPERIEURES_DISPO"
+   ],
+   "note": ""
+  },
+  {
+   "id": "C16",
+   "outil": "a_preparer",
+   "humain": "a_revoir",
+   "score": 9,
+   "alertes": [
+    "HORIZON_COURT",
+    "TP_ZONE_PEU_DESSERVIE"
+   ],
+   "note": ""
+  },
+  {
+   "id": "C17",
+   "outil": "a_preparer",
+   "humain": "refus",
+   "score": 7,
+   "alertes": [
+    "FIABILITE_FAIBLE",
+    "FRANCAIS_A_VERIFIER"
+   ],
+   "note": ""
+  },
+  {
+   "id": "C20",
+   "outil": "a_preparer",
+   "humain": "a_revoir",
+   "score": 6,
+   "alertes": [
+    "FIABILITE_FAIBLE"
+   ],
+   "note": ""
+  },
+  {
+   "id": "C21",
+   "outil": "prioritaire",
+   "humain": "a_preparer",
+   "score": 10,
+   "alertes": [],
+   "note": ""
+  },
+  {
+   "id": "C22",
+   "outil": "prioritaire",
+   "humain": "a_preparer",
+   "score": 9,
+   "alertes": [],
+   "note": ""
+  },
+  {
+   "id": "C23",
+   "outil": "a_preparer",
+   "humain": "prioritaire",
+   "score": 10,
+   "alertes": [
+    "ZONE_ELOIGNEE"
+   ],
+   "note": ""
+  },
+  {
+   "id": "C27",
+   "outil": "a_preparer",
+   "humain": "refus",
+   "score": 4,
+   "alertes": [
+    "FIABILITE_FAIBLE"
+   ],
+   "note": ""
+  },
+  {
+   "id": "C29",
+   "outil": "a_revoir",
+   "humain": "prioritaire",
+   "score": 9,
+   "alertes": [
+    "PERMIS_ADRESSE"
+   ],
+   "note": ""
+  }
+ ],
+ "prerempli": [],
+ "accord_jugees": 17
+}

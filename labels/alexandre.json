@@ -1,0 +1,41 @@
+{
+ "etiqueteur": "Alexandre Demeester",
+ "date": "2026-11-10",
+ "aveugle": true,
+ "etiquettes": {
+  "C25": "a_preparer",
+  "C15": "prioritaire",
+  "C06": "refus",
+  "C30": "a_preparer",
+  "C11": "refus",
+  "C29": "prioritaire",
+  "C02": "prioritaire",
+  "C09": "a_preparer",
+  "C24": "a_preparer",
+  "C23": "prioritaire",
+  "C12": "refus",
+  "C21": "a_preparer",
+  "C22": "a_preparer",
+  "C16": "a_revoir",
+  "C18": "prioritaire",
+  "C03": "a_preparer",
+  "C20": "a_revoir",
+  "C10": "a_revoir",
+  "C17": "refus",
+  "C07": "prioritaire",
+  "C26": "prioritaire",
+  "C04": "a_preparer",
+  "C14": "a_preparer",
+  "C08": "a_revoir",
+  "C13": "a_preparer",
+  "C28": "prioritaire",
+  "C05": "refus",
+  "C27": "refus",
+  "C01": "a_preparer",
+  "C19": "a_preparer"
+ },
+ "notes": {
+  "C08": "Permis G mais habite à Genève ?"
+ },
+ "prerempli": []
+}
