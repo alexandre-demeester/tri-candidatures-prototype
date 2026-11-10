@@ -36,7 +36,20 @@
   nav button, .fin button { padding:9px 14px; border-radius:8px; border:1px solid var(--accent); background:#fff; color:var(--accent); font:inherit; cursor:pointer }
   nav button.plein, .fin button.plein { background:var(--accent); color:#fff }
   .fin { margin-top:18px; display:flex; gap:8px; flex-wrap:wrap; align-items:center }
-  @media (max-width:520px) { .choix { grid-template-columns:1fr } td:first-child { width:46% } }
+  .vue { background:var(--carte); border:1px solid var(--trait); border-radius:10px; padding:12px 14px; margin:0 0 14px }
+  .totaux { display:flex; flex-wrap:wrap; gap:6px 14px; font-size:14px; margin-bottom:10px }
+  .totaux span::before { content:""; display:inline-block; width:10px; height:10px; border-radius:3px; margin-right:6px; vertical-align:-1px; background:var(--c, #fff); border:1px solid var(--c, var(--trait)) }
+  .totaux b { margin-left:4px }
+  .grille { display:grid; grid-template-columns:repeat(10, 1fr); gap:5px }
+  .grille button { padding:6px 0; border:1px solid var(--trait); border-radius:6px; background:#fff; font-family:inherit; font-size:12px; cursor:pointer; color:var(--texte) }
+  .grille button.prioritaire { background:var(--prio); border-color:var(--prio); color:#fff }
+  .grille button.a_preparer { background:var(--prep); border-color:var(--prep); color:#fff }
+  .grille button.a_revoir { background:var(--revoir); border-color:var(--revoir); color:#fff }
+  .grille button.refus { background:var(--refus); border-color:var(--refus); color:#fff }
+  .grille button.ici { outline:3px solid var(--accent); outline-offset:1px }
+  .vue .actions { margin-top:10px; display:flex; gap:8px; flex-wrap:wrap; align-items:center; font-size:14px }
+  .vue .actions button { padding:6px 12px; border-radius:8px; border:1px solid var(--accent); background:#fff; color:var(--accent); font:inherit; cursor:pointer }
+  @media (max-width:520px) { .choix { grid-template-columns:1fr } td:first-child { width:46% } .grille { grid-template-columns:repeat(6, 1fr) } }
 </style>
 </head>
 <body>
@@ -57,6 +70,11 @@
 
   <div class="barre"><div id="prog"></div></div>
   <p class="doux" id="compteur"></p>
+  <div class="vue">
+    <div class="totaux" id="totaux"></div>
+    <div class="grille" id="grille"></div>
+    <div class="actions"><button id="trou">Aller à la prochaine non classée</button><span class="doux">Cliquez une case pour revenir sur une candidature.</span></div>
+  </div>
   <div class="carte" id="carte"></div>
 
   <div class="fin">
@@ -92,9 +110,30 @@
     return out.length ? out.join(" · ") : "aucune";
   }
 
+  var COUL = { prioritaire: "var(--prio)", a_preparer: "var(--prep)", a_revoir: "var(--revoir)", refus: "var(--refus)" };
+  function vue() {
+    var n = { prioritaire: 0, a_preparer: 0, a_revoir: 0, refus: 0 }, reste = 0;
+    C.forEach(function (c) { var f = etat.etiquettes[c.id]; if (f) n[f]++; else reste++; });
+    document.getElementById("totaux").innerHTML = ["prioritaire", "a_preparer", "a_revoir", "refus"].map(function (k) {
+      return "<span style='--c:" + COUL[k] + "'>" + LIB[k] + "<b>" + n[k] + "</b></span>";
+    }).join("") + "<span>À classer<b>" + reste + "</b></span>";
+    document.getElementById("grille").innerHTML = C.map(function (c, i) {
+      var f = etat.etiquettes[c.id] || "";
+      return "<button data-i='" + i + "' class='" + f + (i === etat.pos ? " ici" : "") + "' title='" + c.id + (f ? " · " + LIB[f] : " · à classer") + "'>" + (i + 1) + "</button>";
+    }).join("");
+    Array.prototype.forEach.call(document.querySelectorAll(".grille button"), function (b) {
+      b.onclick = function () { etat.pos = +b.getAttribute("data-i"); sauver(); rendre(); };
+    });
+  }
+  document.getElementById("trou").onclick = function () {
+    for (var k = 0; k < C.length; k++) { var i = (etat.pos + k) % C.length; if (!etat.etiquettes[C[i].id]) { etat.pos = i; sauver(); rendre(); return; } }
+    document.getElementById("etat").textContent = "Tout est classé : vous pouvez télécharger vos étiquettes.";
+  };
+
   function rendre() {
     var c = C[etat.pos], f = etat.etiquettes[c.id];
     var faits = Object.keys(etat.etiquettes).length;
+    vue();
     document.getElementById("prog").style.width = (faits / C.length * 100) + "%";
     document.getElementById("compteur").textContent = "Candidature " + (etat.pos + 1) + " sur " + C.length + " · " + faits + " classée(s)";
     document.getElementById("carte").innerHTML =
