@@ -10,6 +10,7 @@ const C = JSON.parse(fs.readFileSync(new URL("data/candidats.json", racine), "ut
 const L = JSON.parse(fs.readFileSync(new URL(fichier, racine), "utf8"));
 const ORDRE = ["prioritaire", "a_preparer", "a_revoir", "refus"];
 const pre = L.prerempli || [];
+const APPEL = ["prioritaire", "a_preparer"];
 
 const lignes = C.map((c) => {
   const r = trier(c);
@@ -40,11 +41,14 @@ const resultats = {
   // Critères éliminatoires publiés, rangés d'office par la page d'étiquetage : mis à part pour ne pas gonfler l'accord
   prerempli: pre,
   accord_jugees: lignes.filter((l) => !pre.includes(l.id) && l.outil === l.humain).length,
+  // Question plus grossière : appeler maintenant (prioritaire ou à préparer) ou pas (relire, refus)
+  accord_appel: lignes.filter((l) => APPEL.includes(l.outil) === APPEL.includes(l.humain)).length,
 };
 fs.writeFileSync(new URL(process.argv[3] || "data/resultats.json", racine), JSON.stringify(resultats, null, 1));
 
 console.log(`Règles v${VERSION} · ${n} candidatures · étiquetage : ${L.etiqueteur} (${L.date})`);
 console.log(`Accord : ${accords}/${n} (${resultats.taux} %) · kappa de Cohen : ${resultats.kappa}`);
+console.log(`Sur « appeler maintenant ou pas » : ${resultats.accord_appel}/${n}`);
 if (pre.length) {
   const jugees = lignes.filter((l) => !pre.includes(l.id));
   console.log(`Dont ${pre.length} rangées d'office en refus (critère publié : ${pre.join(", ")}). Accord sur les ${jugees.length} jugées à la main : ${resultats.accord_jugees}/${jugees.length}`);

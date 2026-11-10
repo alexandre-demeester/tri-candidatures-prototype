@@ -121,11 +121,52 @@ function rendreAccord() {
   $("k-accord").textContent = `${R.accords}/${R.n}`;
   $("accord").innerHTML = `
     <h3>Accord avec un tri humain à l'aveugle</h3>
-    <p class="petit">${R.accords} candidatures sur ${R.n} rangées dans la même file (${R.taux} %), kappa de Cohen ${R.kappa}. Erreurs graves (bon profil refusé, dossier douteux appelé en premier) : <b>${R.graves.length ? R.graves.join(", ") : "aucune"}</b>.</p>
+    <p class="petit">${R.accords} candidatures sur ${R.n} rangées dans la même file (${virgule(R.taux)}&nbsp;%), kappa de Cohen ${virgule(R.kappa)}. Erreurs graves (bon profil refusé, dossier douteux appelé en premier) : <b>${R.graves.length ? R.graves.join(", ") : "aucune"}</b>.</p>
     <table class="matrice"><tr><th>humain ↓ · outil →</th>${ORDRE.map((o) => `<th>${FILES[o].split(" (")[0]}</th>`).join("")}</tr>
     ${ORDRE.map((h) => `<tr><th>${FILES[h].split(" (")[0]}</th>${ORDRE.map((o) => `<td class="${h === o ? "diag" : ""}">${R.matrice[h][o]}</td>`).join("")}</tr>`).join("")}</table>
-    ${R.desaccords.length ? `<h3 style="margin-top:14px">Les désaccords, un par un</h3><ul class="serre petit">${R.desaccords.map((d) => `<li><b>${d.id}</b> : humain « ${FILES[d.humain]} », outil « ${FILES[d.outil]} » (${d.score}/10).${d.note ? ` <span class="doux">Note : ${esc(d.note)}</span>` : ""}${d.analyse ? ` ${esc(d.analyse)}` : ""}</li>`).join("")}</ul>` : ""}
-    <p class="doux petit">Étiquetage du ${esc(R.date_etiquetage)}, règles v${esc(R.version_regles)} gelées avant.</p>`;
+    ${R.accord_appel != null ? `<p class="petit">Sur la seule question « appeler maintenant ou pas » : <b>${R.accord_appel}/${R.n}</b>. L'essentiel des écarts porte sur l'ordre des appels.</p>` : ""}
+    ${R.desaccords.length ? `<h3 style="margin-top:14px">Les ${R.desaccords.length} désaccords, regroupés</h3>${rendreAnalyse(R)}` : ""}
+    <p class="doux petit">Étiquetage du ${esc(R.date_etiquetage)}, règles v${esc(R.version_regles)} gelées avant. Aucune règle modifiée après le tri humain : cette mesure reste valable.</p>`;
+}
+
+// Analyse écrite après le tri humain, à partir des fiches et des explications du recruteur.
+// Elle explique les écarts ; elle ne sert pas à retoucher les règles (le chiffre deviendrait circulaire).
+const ANALYSE = [
+  { titre: "Le tri humain a révélé une préférence non écrite : la voiture", ids: ["C01", "C03", "C09", "C21"],
+    texte: "Les 8 appels prioritaires du recruteur viennent tous en voiture, aucun en transports publics. L'outil ne pénalise les transports publics que dans les zones peu desservies : à Lausanne, Genève ou Neuchâtel, il les juge suffisants. Qui a raison ? Seules les données de MénageSimple le diront, en comparant retards et annulations selon le mode de transport." },
+  { titre: "Refus sur des critères qui ne sont pas éliminatoires", ids: ["C05", "C17", "C27"],
+    texte: "Quelques mois d'expérience et une réponse vague, français débutant, disponible le samedi seulement. Le recruteur refuse ; l'outil met un appel à préparer avec la question à poser. C'est voulu : il ne refuse que sur les critères publiés. Pour refuser d'office, il faudrait d'abord publier ces critères." },
+  { titre: "« À relire » utilisé pour un doute", ids: ["C16", "C20"],
+    texte: "Disponible moins de 3 mois ; a déjà manqué de prévenir une fois. L'outil réserve « à relire » aux données qui se contredisent et pose une question à la place. La définition des files est à fixer avec l'équipe qui recrute." },
+  { titre: "L'outil plus prudent que l'humain", ids: ["C15", "C23"],
+    texte: "C15 veut au moins 30 h par semaine pour quatre matinées cochées. C23 habite Pontarlier et vise La Chaux-de-Fonds, à 43 km à vol d'oiseau : un trajet ordinaire pour un frontalier en voiture. Le seuil de 35 km est à revoir avec des temps de trajet réels." },
+  { titre: "Ce que l'outil a vu et pas l'humain", ids: ["C29"],
+    texte: "Permis B, qui suppose d'habiter en Suisse, avec une adresse à Saint-Julien-en-Genevois, en France. Le recruteur l'aurait appelée en premier ; l'outil l'envoie en relecture. Le recruteur avait pourtant repéré l'incohérence inverse sur C08 (permis G, adresse à Genève)." },
+  { titre: "Plus prudent que l'outil, raison non notée", ids: ["C22"],
+    texte: "Trois ans en entreprise de nettoyage, voiture, pas de référence." },
+];
+const virgule = (x) => String(x).replace(".", ",");
+const court = (f) => FILES[f].split(" (")[0];
+function rendreAnalyse(R) {
+  const parId = Object.fromEntries(R.desaccords.map((d) => [d.id, d]));
+  const vus = new Set();
+  const blocs = ANALYSE.filter((g) => g.ids.some((id) => parId[id])).map((g) => {
+    g.ids.forEach((id) => vus.add(id));
+    // Les candidatures d'un groupe qui partagent le même écart sont citées ensemble
+    const paires = {};
+    for (const id of g.ids.filter((x) => parId[x])) {
+      const k = parId[id].humain + "|" + parId[id].outil;
+      (paires[k] = paires[k] || []).push(id);
+    }
+    const qui = Object.entries(paires).map(([k, ids]) => {
+      const [h, o] = k.split("|");
+      return `<b>${ids.join(", ")}</b> ${esc(`: humain « ${court(h)} », outil « ${court(o)} »`)}`;
+    }).join(" ; ");
+    return `<li><b>${esc(g.titre)}</b><br><span class="doux">${qui}.</span> ${esc(g.texte)}</li>`;
+  });
+  // Filet : un désaccord sans analyse reste affiché tel quel
+  const restes = R.desaccords.filter((d) => !vus.has(d.id)).map((d) => `<li><b>${d.id}</b> : humain « ${FILES[d.humain]} », outil « ${FILES[d.outil]} » (${d.score}/10).</li>`);
+  return `<ul class="serre petit">${blocs.concat(restes).join("")}</ul>`;
 }
 
 rendreFile();
